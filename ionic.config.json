@@ -1,0 +1,7 @@
+{
+  "name": "sign-translation-system",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
