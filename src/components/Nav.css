@@ -1,0 +1,64 @@
+.navbar{
+    padding: 20px;
+    font-family: 'Comfortaa', cursive;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.nav_icon{
+    width: 50px;
+}
+
+.mobile_menu{
+    display: none;
+}
+.modal_head{
+    border-style: none;
+    box-shadow: none;
+    padding: 2%;
+}
+
+.main-login-modal{
+   --border-radius: 20px;
+   text-align: center;
+}
+
+.btn-login{
+    width: 40%;
+}
+
+.form{
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.login_logo{
+    width: 50px;
+}
+
+.login_title{
+    text-align: center;
+}
+@media (max-width: 576px) { 
+    .nav_icon{
+        width: 20px;
+    }
+
+    .mobile_menu{
+        display: block;
+    }
+
+    .navbar-brand{
+        font-size: 15px !important;
+        padding: 5px !important;
+    }
+
+    .container-fluid{
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .main-login-modal{
+        --border-radius: 0px;
+        text-align: center;
+     }
+}

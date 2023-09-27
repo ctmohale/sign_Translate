@@ -1,0 +1,23 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-signtranslationsyste-dev-211644-authRole",
+      "UnauthRoleArn": "arn:aws:iam::431912122469:role/amplify-signtranslationsyste-dev-211644-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::431912122469:role/amplify-signtranslationsyste-dev-211644-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-signtranslationsyste-dev-211644-deployment",
+      "UnauthRoleName": "amplify-signtranslationsyste-dev-211644-unauthRole",
+      "StackName": "amplify-signtranslationsyste-dev-211644",
+      "StackId": "arn:aws:cloudformation:us-east-1:431912122469:stack/amplify-signtranslationsyste-dev-211644/1c875080-3f8e-11ee-9a26-1299c6d20185",
+      "AmplifyAppId": "d3bfiphrdk97v"
+    },
+    "categories": {
+      "api": {
+        "signtranslationsyste": {}
+      },
+      "hosting": {
+        "S3AndCloudFront": {}
+      }
+    }
+  }
+}

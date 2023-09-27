@@ -1,0 +1,48 @@
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+input AMPLIFY {
+  globalAuthRule: AuthRule = { allow: public }
+} # FOR TESTING ONLY!
+type User @model {
+  id: ID!
+  name: String!
+  surname: String!
+  email: String!
+  password: String!
+  address: String!
+  postal_code: String!
+  id_number: String!
+  cell_phone_no: String!
+  access_type: String!
+  translationsetting: [TranslationSetting]
+    @hasMany(indexName: "byUserID", fields: ["id"])
+  report: [Report] @hasMany(indexName: "byUserID", fields: ["id"])
+}
+
+type Admin @model {
+  id: ID!
+  name: String!
+  surname: String!
+  email: String!
+  password: String!
+}
+
+type Report @model {
+  id: ID!
+  data: String!
+  user_id: ID! @index(name: "byUserID")
+}
+
+type TranslationLanguageType @model {
+  id: ID!
+  Language: String!
+  translationsetting: [TranslationSetting]
+    @hasMany(indexName: "byTranslationSettingID", fields: ["id"])
+}
+
+type TranslationSetting @model {
+  id: ID!
+  translationlanguage: String
+  user_id: ID! @index(name: "byUserID")
+  translation_language_types_id: ID! @index(name: "byTranslationSettingID")
+}
