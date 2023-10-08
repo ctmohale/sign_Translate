@@ -24,12 +24,12 @@ import { API, Auth } from "aws-amplify";
 import { useEffect, useRef, useState, useContext } from "react";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import {
-  CreateTranslationSettingInput,
-  CreateTranslationSettingMutation,
+  CreateLanguageInput,
+  CreateLanguageMutation,
   CreateUserInput,
   CreateUserMutation,
-  DeleteTranslationSettingInput,
-  DeleteTranslationSettingMutation,
+  DeleteLanguageInput,
+  DeleteLanguageMutation,
 } from "../API";
 import { GraphQLQuery } from "@aws-amplify/api";
 import * as mutations from "../graphql/mutations";
@@ -60,22 +60,16 @@ const Settings: React.FC = () => {
     },
   });
 
-  useEffect(() => {
-    console.log(allTransLate);
-  }, [allTransLate]);
-
-  async function addNewLang(data: any, t_id: any) {
-    console.log(t_id);
-    const data_settings: CreateTranslationSettingInput = {
-      translationlanguage: data,
+  async function addNewLang() {
+    console.log(lngD);
+    console.log(loginUser.id);
+    const data_settings: CreateLanguageInput = {
+      Language_name: lngD,
       user_id: loginUser.id,
-      translation_language_types_id: t_id,
     };
 
-    const newTodo = await API.graphql<
-      GraphQLQuery<CreateTranslationSettingMutation>
-    >({
-      query: mutations.createTranslationSetting,
+    const newTodo = await API.graphql<GraphQLQuery<CreateLanguageMutation>>({
+      query: mutations.createLanguage,
       variables: { input: data_settings },
     });
 
@@ -84,28 +78,34 @@ const Settings: React.FC = () => {
         icon: "success",
         title: "Defult translation language set!",
       });
+      setInterval(() => {
+        window.location.href = "/settings";
+      }, 2000);
     } else {
     }
   }
 
   //Delete settings
   async function deleteSetting(id: any) {
-    const todoDetails: DeleteTranslationSettingInput = {
+    const todoDetails: DeleteLanguageInput = {
       id: id,
     };
 
-    const deletedTodo = await API.graphql<
-      GraphQLQuery<DeleteTranslationSettingMutation>
-    >({
-      query: mutations.deleteTranslationSetting,
-      variables: { input: todoDetails },
-    });
+    const deletedTodo = await API.graphql<GraphQLQuery<DeleteLanguageMutation>>(
+      {
+        query: mutations.deleteLanguage,
+        variables: { input: todoDetails },
+      }
+    );
 
     if (deletedTodo) {
       Toast.fire({
         icon: "success",
         title: "Record deleted successfully!!",
       });
+      setInterval(() => {
+        window.location.href = "/settings";
+      }, 2000);
     }
 
     setSerTranslateSetting((userTranslateSetting: any) => {
@@ -114,11 +114,10 @@ const Settings: React.FC = () => {
   }
 
   function setF(e: any) {
-    setLngID(e.target.value.id);
-    setlngD(e.target.value.data);
-
-    console.log(lngD);
+    setlngD(e.detail.value);
   }
+
+
 
   return (
     <IonPage>
@@ -147,27 +146,15 @@ const Settings: React.FC = () => {
                         placeholder="Select defult translation language"
                         onIonChange={(e: any) => setF(e)}
                       >
-                        {allTransLate &&
-                          allTransLate.map((element_data: any) => {
-                            return (
-                              <IonSelectOption
-                                key={element_data.id}
-                                value={{
-                                  id: element_data.id,
-                                  data: element_data.Language,
-                                }}
-                              >
-                                {element_data.Language}
-                              </IonSelectOption>
-                            );
-                          })}
+                        <IonSelectOption value="English">
+                          English
+                        </IonSelectOption>
+                        <IonSelectOption value="Sepedi">Sepedi</IonSelectOption>
+                        <IonSelectOption value="Zulu">Zulu</IonSelectOption>
                       </IonSelect>
                     </IonCol>
                     <IonCol style={{ textAlign: "right" }}>
-                      <IonButton
-                        color="medium"
-                        onClick={() => addNewLang(lngD, lngID)}
-                      >
+                      <IonButton color="medium" onClick={() => addNewLang()}>
                         Add Language
                       </IonButton>
                     </IonCol>
@@ -194,9 +181,9 @@ const Settings: React.FC = () => {
                               <tr key={element_data.id}>
                                 <th scope="row">{id__value}</th>
                                 <td scope="row">
-                                  {element_data.translationlanguage}
+                                  {element_data.Language_name}
                                 </td>
-                                <td scope="row">17-01-2021 000</td>
+                                <td scope="row">{element_data.createdAt}</td>
                                 <td scope="row">
                                   <IonButton
                                     onClick={() =>

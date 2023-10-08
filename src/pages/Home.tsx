@@ -11,7 +11,6 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import ExploreContainer from "../components/ExploreContainer";
 import "./Home.css";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
@@ -27,10 +26,6 @@ const Home: React.FC = () => {
   const input = useRef<HTMLIonInputElement>(null);
   const { loginUser, setLoginUser }: any = useContext(LoginData);
   const { users, setUsers }: any = useContext(AllUsers);
-
-  useEffect(() => {
-    console.log(loginUser);
-  });
 
   const [message, setMessage] = useState(
     "This modal example uses triggers to automatically open a modal when the button is clicked."
@@ -93,7 +88,7 @@ const Home: React.FC = () => {
               color="light"
               routerLink="/Registration"
             >
-              Register now
+              Register  now
             </IonButton>
           </div>
         </section>

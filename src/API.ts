@@ -82,38 +82,37 @@ export type User = {
   id_number: string,
   cell_phone_no: string,
   access_type: string,
-  translationsetting?: ModelTranslationSettingConnection | null,
-  report?: ModelReportConnection | null,
+  language?: ModelLanguageConnection | null,
+  gesture?: ModelGestureConnection | null,
   createdAt: string,
   updatedAt: string,
 };
 
-export type ModelTranslationSettingConnection = {
-  __typename: "ModelTranslationSettingConnection",
-  items:  Array<TranslationSetting | null >,
+export type ModelLanguageConnection = {
+  __typename: "ModelLanguageConnection",
+  items:  Array<Language | null >,
   nextToken?: string | null,
 };
 
-export type TranslationSetting = {
-  __typename: "TranslationSetting",
+export type Language = {
+  __typename: "Language",
   id: string,
-  translationlanguage?: string | null,
+  Language_name: string,
   user_id: string,
-  translation_language_types_id: string,
   createdAt: string,
   updatedAt: string,
 };
 
-export type ModelReportConnection = {
-  __typename: "ModelReportConnection",
-  items:  Array<Report | null >,
+export type ModelGestureConnection = {
+  __typename: "ModelGestureConnection",
+  items:  Array<Gesture | null >,
   nextToken?: string | null,
 };
 
-export type Report = {
-  __typename: "Report",
+export type Gesture = {
+  __typename: "Gesture",
   id: string,
-  data: string,
+  sign_language: string,
   user_id: string,
   createdAt: string,
   updatedAt: string,
@@ -136,59 +135,18 @@ export type DeleteUserInput = {
   id: string,
 };
 
-export type CreateAdminInput = {
+export type CreateGestureInput = {
   id?: string | null,
-  name: string,
-  surname: string,
-  email: string,
-  password: string,
-};
-
-export type ModelAdminConditionInput = {
-  name?: ModelStringInput | null,
-  surname?: ModelStringInput | null,
-  email?: ModelStringInput | null,
-  password?: ModelStringInput | null,
-  and?: Array< ModelAdminConditionInput | null > | null,
-  or?: Array< ModelAdminConditionInput | null > | null,
-  not?: ModelAdminConditionInput | null,
-};
-
-export type Admin = {
-  __typename: "Admin",
-  id: string,
-  name: string,
-  surname: string,
-  email: string,
-  password: string,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type UpdateAdminInput = {
-  id: string,
-  name?: string | null,
-  surname?: string | null,
-  email?: string | null,
-  password?: string | null,
-};
-
-export type DeleteAdminInput = {
-  id: string,
-};
-
-export type CreateReportInput = {
-  id?: string | null,
-  data: string,
+  sign_language: string,
   user_id: string,
 };
 
-export type ModelReportConditionInput = {
-  data?: ModelStringInput | null,
+export type ModelGestureConditionInput = {
+  sign_language?: ModelStringInput | null,
   user_id?: ModelIDInput | null,
-  and?: Array< ModelReportConditionInput | null > | null,
-  or?: Array< ModelReportConditionInput | null > | null,
-  not?: ModelReportConditionInput | null,
+  and?: Array< ModelGestureConditionInput | null > | null,
+  or?: Array< ModelGestureConditionInput | null > | null,
+  not?: ModelGestureConditionInput | null,
 };
 
 export type ModelIDInput = {
@@ -207,70 +165,37 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
-export type UpdateReportInput = {
+export type UpdateGestureInput = {
   id: string,
-  data?: string | null,
+  sign_language?: string | null,
   user_id?: string | null,
 };
 
-export type DeleteReportInput = {
+export type DeleteGestureInput = {
   id: string,
 };
 
-export type CreateTranslationLanguageTypeInput = {
+export type CreateLanguageInput = {
   id?: string | null,
-  Language: string,
-};
-
-export type ModelTranslationLanguageTypeConditionInput = {
-  Language?: ModelStringInput | null,
-  and?: Array< ModelTranslationLanguageTypeConditionInput | null > | null,
-  or?: Array< ModelTranslationLanguageTypeConditionInput | null > | null,
-  not?: ModelTranslationLanguageTypeConditionInput | null,
-};
-
-export type TranslationLanguageType = {
-  __typename: "TranslationLanguageType",
-  id: string,
-  Language: string,
-  translationsetting?: ModelTranslationSettingConnection | null,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type UpdateTranslationLanguageTypeInput = {
-  id: string,
-  Language?: string | null,
-};
-
-export type DeleteTranslationLanguageTypeInput = {
-  id: string,
-};
-
-export type CreateTranslationSettingInput = {
-  id?: string | null,
-  translationlanguage?: string | null,
+  Language_name: string,
   user_id: string,
-  translation_language_types_id: string,
 };
 
-export type ModelTranslationSettingConditionInput = {
-  translationlanguage?: ModelStringInput | null,
+export type ModelLanguageConditionInput = {
+  Language_name?: ModelStringInput | null,
   user_id?: ModelIDInput | null,
-  translation_language_types_id?: ModelIDInput | null,
-  and?: Array< ModelTranslationSettingConditionInput | null > | null,
-  or?: Array< ModelTranslationSettingConditionInput | null > | null,
-  not?: ModelTranslationSettingConditionInput | null,
+  and?: Array< ModelLanguageConditionInput | null > | null,
+  or?: Array< ModelLanguageConditionInput | null > | null,
+  not?: ModelLanguageConditionInput | null,
 };
 
-export type UpdateTranslationSettingInput = {
+export type UpdateLanguageInput = {
   id: string,
-  translationlanguage?: string | null,
+  Language_name?: string | null,
   user_id?: string | null,
-  translation_language_types_id?: string | null,
 };
 
-export type DeleteTranslationSettingInput = {
+export type DeleteLanguageInput = {
   id: string,
 };
 
@@ -296,54 +221,22 @@ export type ModelUserConnection = {
   nextToken?: string | null,
 };
 
-export type ModelAdminFilterInput = {
+export type ModelGestureFilterInput = {
   id?: ModelIDInput | null,
-  name?: ModelStringInput | null,
-  surname?: ModelStringInput | null,
-  email?: ModelStringInput | null,
-  password?: ModelStringInput | null,
-  and?: Array< ModelAdminFilterInput | null > | null,
-  or?: Array< ModelAdminFilterInput | null > | null,
-  not?: ModelAdminFilterInput | null,
-};
-
-export type ModelAdminConnection = {
-  __typename: "ModelAdminConnection",
-  items:  Array<Admin | null >,
-  nextToken?: string | null,
-};
-
-export type ModelReportFilterInput = {
-  id?: ModelIDInput | null,
-  data?: ModelStringInput | null,
+  sign_language?: ModelStringInput | null,
   user_id?: ModelIDInput | null,
-  and?: Array< ModelReportFilterInput | null > | null,
-  or?: Array< ModelReportFilterInput | null > | null,
-  not?: ModelReportFilterInput | null,
+  and?: Array< ModelGestureFilterInput | null > | null,
+  or?: Array< ModelGestureFilterInput | null > | null,
+  not?: ModelGestureFilterInput | null,
 };
 
-export type ModelTranslationLanguageTypeFilterInput = {
+export type ModelLanguageFilterInput = {
   id?: ModelIDInput | null,
-  Language?: ModelStringInput | null,
-  and?: Array< ModelTranslationLanguageTypeFilterInput | null > | null,
-  or?: Array< ModelTranslationLanguageTypeFilterInput | null > | null,
-  not?: ModelTranslationLanguageTypeFilterInput | null,
-};
-
-export type ModelTranslationLanguageTypeConnection = {
-  __typename: "ModelTranslationLanguageTypeConnection",
-  items:  Array<TranslationLanguageType | null >,
-  nextToken?: string | null,
-};
-
-export type ModelTranslationSettingFilterInput = {
-  id?: ModelIDInput | null,
-  translationlanguage?: ModelStringInput | null,
+  Language_name?: ModelStringInput | null,
   user_id?: ModelIDInput | null,
-  translation_language_types_id?: ModelIDInput | null,
-  and?: Array< ModelTranslationSettingFilterInput | null > | null,
-  or?: Array< ModelTranslationSettingFilterInput | null > | null,
-  not?: ModelTranslationSettingFilterInput | null,
+  and?: Array< ModelLanguageFilterInput | null > | null,
+  or?: Array< ModelLanguageFilterInput | null > | null,
+  not?: ModelLanguageFilterInput | null,
 };
 
 export enum ModelSortDirection {
@@ -397,38 +290,20 @@ export type ModelSubscriptionStringInput = {
   notIn?: Array< string | null > | null,
 };
 
-export type ModelSubscriptionAdminFilterInput = {
+export type ModelSubscriptionGestureFilterInput = {
   id?: ModelSubscriptionIDInput | null,
-  name?: ModelSubscriptionStringInput | null,
-  surname?: ModelSubscriptionStringInput | null,
-  email?: ModelSubscriptionStringInput | null,
-  password?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionAdminFilterInput | null > | null,
-  or?: Array< ModelSubscriptionAdminFilterInput | null > | null,
-};
-
-export type ModelSubscriptionReportFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  data?: ModelSubscriptionStringInput | null,
+  sign_language?: ModelSubscriptionStringInput | null,
   user_id?: ModelSubscriptionIDInput | null,
-  and?: Array< ModelSubscriptionReportFilterInput | null > | null,
-  or?: Array< ModelSubscriptionReportFilterInput | null > | null,
+  and?: Array< ModelSubscriptionGestureFilterInput | null > | null,
+  or?: Array< ModelSubscriptionGestureFilterInput | null > | null,
 };
 
-export type ModelSubscriptionTranslationLanguageTypeFilterInput = {
+export type ModelSubscriptionLanguageFilterInput = {
   id?: ModelSubscriptionIDInput | null,
-  Language?: ModelSubscriptionStringInput | null,
-  and?: Array< ModelSubscriptionTranslationLanguageTypeFilterInput | null > | null,
-  or?: Array< ModelSubscriptionTranslationLanguageTypeFilterInput | null > | null,
-};
-
-export type ModelSubscriptionTranslationSettingFilterInput = {
-  id?: ModelSubscriptionIDInput | null,
-  translationlanguage?: ModelSubscriptionStringInput | null,
+  Language_name?: ModelSubscriptionStringInput | null,
   user_id?: ModelSubscriptionIDInput | null,
-  translation_language_types_id?: ModelSubscriptionIDInput | null,
-  and?: Array< ModelSubscriptionTranslationSettingFilterInput | null > | null,
-  or?: Array< ModelSubscriptionTranslationSettingFilterInput | null > | null,
+  and?: Array< ModelSubscriptionLanguageFilterInput | null > | null,
+  or?: Array< ModelSubscriptionLanguageFilterInput | null > | null,
 };
 
 export type CreateUserMutationVariables = {
@@ -449,25 +324,24 @@ export type CreateUserMutation = {
     id_number: string,
     cell_phone_no: string,
     access_type: string,
-    translationsetting?:  {
-      __typename: "ModelTranslationSettingConnection",
+    language?:  {
+      __typename: "ModelLanguageConnection",
       items:  Array< {
-        __typename: "TranslationSetting",
+        __typename: "Language",
         id: string,
-        translationlanguage?: string | null,
+        Language_name: string,
         user_id: string,
-        translation_language_types_id: string,
         createdAt: string,
         updatedAt: string,
       } | null >,
       nextToken?: string | null,
     } | null,
-    report?:  {
-      __typename: "ModelReportConnection",
+    gesture?:  {
+      __typename: "ModelGestureConnection",
       items:  Array< {
-        __typename: "Report",
+        __typename: "Gesture",
         id: string,
-        data: string,
+        sign_language: string,
         user_id: string,
         createdAt: string,
         updatedAt: string,
@@ -497,25 +371,24 @@ export type UpdateUserMutation = {
     id_number: string,
     cell_phone_no: string,
     access_type: string,
-    translationsetting?:  {
-      __typename: "ModelTranslationSettingConnection",
+    language?:  {
+      __typename: "ModelLanguageConnection",
       items:  Array< {
-        __typename: "TranslationSetting",
+        __typename: "Language",
         id: string,
-        translationlanguage?: string | null,
+        Language_name: string,
         user_id: string,
-        translation_language_types_id: string,
         createdAt: string,
         updatedAt: string,
       } | null >,
       nextToken?: string | null,
     } | null,
-    report?:  {
-      __typename: "ModelReportConnection",
+    gesture?:  {
+      __typename: "ModelGestureConnection",
       items:  Array< {
-        __typename: "Report",
+        __typename: "Gesture",
         id: string,
-        data: string,
+        sign_language: string,
         user_id: string,
         createdAt: string,
         updatedAt: string,
@@ -545,156 +418,25 @@ export type DeleteUserMutation = {
     id_number: string,
     cell_phone_no: string,
     access_type: string,
-    translationsetting?:  {
-      __typename: "ModelTranslationSettingConnection",
+    language?:  {
+      __typename: "ModelLanguageConnection",
       items:  Array< {
-        __typename: "TranslationSetting",
+        __typename: "Language",
         id: string,
-        translationlanguage?: string | null,
-        user_id: string,
-        translation_language_types_id: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    report?:  {
-      __typename: "ModelReportConnection",
-      items:  Array< {
-        __typename: "Report",
-        id: string,
-        data: string,
+        Language_name: string,
         user_id: string,
         createdAt: string,
         updatedAt: string,
       } | null >,
       nextToken?: string | null,
     } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type CreateAdminMutationVariables = {
-  input: CreateAdminInput,
-  condition?: ModelAdminConditionInput | null,
-};
-
-export type CreateAdminMutation = {
-  createAdmin?:  {
-    __typename: "Admin",
-    id: string,
-    name: string,
-    surname: string,
-    email: string,
-    password: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type UpdateAdminMutationVariables = {
-  input: UpdateAdminInput,
-  condition?: ModelAdminConditionInput | null,
-};
-
-export type UpdateAdminMutation = {
-  updateAdmin?:  {
-    __typename: "Admin",
-    id: string,
-    name: string,
-    surname: string,
-    email: string,
-    password: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type DeleteAdminMutationVariables = {
-  input: DeleteAdminInput,
-  condition?: ModelAdminConditionInput | null,
-};
-
-export type DeleteAdminMutation = {
-  deleteAdmin?:  {
-    __typename: "Admin",
-    id: string,
-    name: string,
-    surname: string,
-    email: string,
-    password: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type CreateReportMutationVariables = {
-  input: CreateReportInput,
-  condition?: ModelReportConditionInput | null,
-};
-
-export type CreateReportMutation = {
-  createReport?:  {
-    __typename: "Report",
-    id: string,
-    data: string,
-    user_id: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type UpdateReportMutationVariables = {
-  input: UpdateReportInput,
-  condition?: ModelReportConditionInput | null,
-};
-
-export type UpdateReportMutation = {
-  updateReport?:  {
-    __typename: "Report",
-    id: string,
-    data: string,
-    user_id: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type DeleteReportMutationVariables = {
-  input: DeleteReportInput,
-  condition?: ModelReportConditionInput | null,
-};
-
-export type DeleteReportMutation = {
-  deleteReport?:  {
-    __typename: "Report",
-    id: string,
-    data: string,
-    user_id: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type CreateTranslationLanguageTypeMutationVariables = {
-  input: CreateTranslationLanguageTypeInput,
-  condition?: ModelTranslationLanguageTypeConditionInput | null,
-};
-
-export type CreateTranslationLanguageTypeMutation = {
-  createTranslationLanguageType?:  {
-    __typename: "TranslationLanguageType",
-    id: string,
-    Language: string,
-    translationsetting?:  {
-      __typename: "ModelTranslationSettingConnection",
+    gesture?:  {
+      __typename: "ModelGestureConnection",
       items:  Array< {
-        __typename: "TranslationSetting",
+        __typename: "Gesture",
         id: string,
-        translationlanguage?: string | null,
+        sign_language: string,
         user_id: string,
-        translation_language_types_id: string,
         createdAt: string,
         updatedAt: string,
       } | null >,
@@ -705,108 +447,97 @@ export type CreateTranslationLanguageTypeMutation = {
   } | null,
 };
 
-export type UpdateTranslationLanguageTypeMutationVariables = {
-  input: UpdateTranslationLanguageTypeInput,
-  condition?: ModelTranslationLanguageTypeConditionInput | null,
+export type CreateGestureMutationVariables = {
+  input: CreateGestureInput,
+  condition?: ModelGestureConditionInput | null,
 };
 
-export type UpdateTranslationLanguageTypeMutation = {
-  updateTranslationLanguageType?:  {
-    __typename: "TranslationLanguageType",
+export type CreateGestureMutation = {
+  createGesture?:  {
+    __typename: "Gesture",
     id: string,
-    Language: string,
-    translationsetting?:  {
-      __typename: "ModelTranslationSettingConnection",
-      items:  Array< {
-        __typename: "TranslationSetting",
-        id: string,
-        translationlanguage?: string | null,
-        user_id: string,
-        translation_language_types_id: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type DeleteTranslationLanguageTypeMutationVariables = {
-  input: DeleteTranslationLanguageTypeInput,
-  condition?: ModelTranslationLanguageTypeConditionInput | null,
-};
-
-export type DeleteTranslationLanguageTypeMutation = {
-  deleteTranslationLanguageType?:  {
-    __typename: "TranslationLanguageType",
-    id: string,
-    Language: string,
-    translationsetting?:  {
-      __typename: "ModelTranslationSettingConnection",
-      items:  Array< {
-        __typename: "TranslationSetting",
-        id: string,
-        translationlanguage?: string | null,
-        user_id: string,
-        translation_language_types_id: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type CreateTranslationSettingMutationVariables = {
-  input: CreateTranslationSettingInput,
-  condition?: ModelTranslationSettingConditionInput | null,
-};
-
-export type CreateTranslationSettingMutation = {
-  createTranslationSetting?:  {
-    __typename: "TranslationSetting",
-    id: string,
-    translationlanguage?: string | null,
+    sign_language: string,
     user_id: string,
-    translation_language_types_id: string,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type UpdateTranslationSettingMutationVariables = {
-  input: UpdateTranslationSettingInput,
-  condition?: ModelTranslationSettingConditionInput | null,
+export type UpdateGestureMutationVariables = {
+  input: UpdateGestureInput,
+  condition?: ModelGestureConditionInput | null,
 };
 
-export type UpdateTranslationSettingMutation = {
-  updateTranslationSetting?:  {
-    __typename: "TranslationSetting",
+export type UpdateGestureMutation = {
+  updateGesture?:  {
+    __typename: "Gesture",
     id: string,
-    translationlanguage?: string | null,
+    sign_language: string,
     user_id: string,
-    translation_language_types_id: string,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type DeleteTranslationSettingMutationVariables = {
-  input: DeleteTranslationSettingInput,
-  condition?: ModelTranslationSettingConditionInput | null,
+export type DeleteGestureMutationVariables = {
+  input: DeleteGestureInput,
+  condition?: ModelGestureConditionInput | null,
 };
 
-export type DeleteTranslationSettingMutation = {
-  deleteTranslationSetting?:  {
-    __typename: "TranslationSetting",
+export type DeleteGestureMutation = {
+  deleteGesture?:  {
+    __typename: "Gesture",
     id: string,
-    translationlanguage?: string | null,
+    sign_language: string,
     user_id: string,
-    translation_language_types_id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateLanguageMutationVariables = {
+  input: CreateLanguageInput,
+  condition?: ModelLanguageConditionInput | null,
+};
+
+export type CreateLanguageMutation = {
+  createLanguage?:  {
+    __typename: "Language",
+    id: string,
+    Language_name: string,
+    user_id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateLanguageMutationVariables = {
+  input: UpdateLanguageInput,
+  condition?: ModelLanguageConditionInput | null,
+};
+
+export type UpdateLanguageMutation = {
+  updateLanguage?:  {
+    __typename: "Language",
+    id: string,
+    Language_name: string,
+    user_id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteLanguageMutationVariables = {
+  input: DeleteLanguageInput,
+  condition?: ModelLanguageConditionInput | null,
+};
+
+export type DeleteLanguageMutation = {
+  deleteLanguage?:  {
+    __typename: "Language",
+    id: string,
+    Language_name: string,
+    user_id: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -829,25 +560,24 @@ export type GetUserQuery = {
     id_number: string,
     cell_phone_no: string,
     access_type: string,
-    translationsetting?:  {
-      __typename: "ModelTranslationSettingConnection",
+    language?:  {
+      __typename: "ModelLanguageConnection",
       items:  Array< {
-        __typename: "TranslationSetting",
+        __typename: "Language",
         id: string,
-        translationlanguage?: string | null,
+        Language_name: string,
         user_id: string,
-        translation_language_types_id: string,
         createdAt: string,
         updatedAt: string,
       } | null >,
       nextToken?: string | null,
     } | null,
-    report?:  {
-      __typename: "ModelReportConnection",
+    gesture?:  {
+      __typename: "ModelGestureConnection",
       items:  Array< {
-        __typename: "Report",
+        __typename: "Gesture",
         id: string,
-        data: string,
+        sign_language: string,
         user_id: string,
         createdAt: string,
         updatedAt: string,
@@ -880,12 +610,12 @@ export type ListUsersQuery = {
       id_number: string,
       cell_phone_no: string,
       access_type: string,
-      translationsetting?:  {
-        __typename: "ModelTranslationSettingConnection",
+      language?:  {
+        __typename: "ModelLanguageConnection",
         nextToken?: string | null,
       } | null,
-      report?:  {
-        __typename: "ModelReportConnection",
+      gesture?:  {
+        __typename: "ModelGestureConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
@@ -895,74 +625,34 @@ export type ListUsersQuery = {
   } | null,
 };
 
-export type GetAdminQueryVariables = {
+export type GetGestureQueryVariables = {
   id: string,
 };
 
-export type GetAdminQuery = {
-  getAdmin?:  {
-    __typename: "Admin",
+export type GetGestureQuery = {
+  getGesture?:  {
+    __typename: "Gesture",
     id: string,
-    name: string,
-    surname: string,
-    email: string,
-    password: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type ListAdminsQueryVariables = {
-  filter?: ModelAdminFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListAdminsQuery = {
-  listAdmins?:  {
-    __typename: "ModelAdminConnection",
-    items:  Array< {
-      __typename: "Admin",
-      id: string,
-      name: string,
-      surname: string,
-      email: string,
-      password: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type GetReportQueryVariables = {
-  id: string,
-};
-
-export type GetReportQuery = {
-  getReport?:  {
-    __typename: "Report",
-    id: string,
-    data: string,
+    sign_language: string,
     user_id: string,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type ListReportsQueryVariables = {
-  filter?: ModelReportFilterInput | null,
+export type ListGesturesQueryVariables = {
+  filter?: ModelGestureFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListReportsQuery = {
-  listReports?:  {
-    __typename: "ModelReportConnection",
+export type ListGesturesQuery = {
+  listGestures?:  {
+    __typename: "ModelGestureConnection",
     items:  Array< {
-      __typename: "Report",
+      __typename: "Gesture",
       id: string,
-      data: string,
+      sign_language: string,
       user_id: string,
       createdAt: string,
       updatedAt: string,
@@ -971,88 +661,35 @@ export type ListReportsQuery = {
   } | null,
 };
 
-export type GetTranslationLanguageTypeQueryVariables = {
+export type GetLanguageQueryVariables = {
   id: string,
 };
 
-export type GetTranslationLanguageTypeQuery = {
-  getTranslationLanguageType?:  {
-    __typename: "TranslationLanguageType",
+export type GetLanguageQuery = {
+  getLanguage?:  {
+    __typename: "Language",
     id: string,
-    Language: string,
-    translationsetting?:  {
-      __typename: "ModelTranslationSettingConnection",
-      items:  Array< {
-        __typename: "TranslationSetting",
-        id: string,
-        translationlanguage?: string | null,
-        user_id: string,
-        translation_language_types_id: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type ListTranslationLanguageTypesQueryVariables = {
-  filter?: ModelTranslationLanguageTypeFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListTranslationLanguageTypesQuery = {
-  listTranslationLanguageTypes?:  {
-    __typename: "ModelTranslationLanguageTypeConnection",
-    items:  Array< {
-      __typename: "TranslationLanguageType",
-      id: string,
-      Language: string,
-      translationsetting?:  {
-        __typename: "ModelTranslationSettingConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type GetTranslationSettingQueryVariables = {
-  id: string,
-};
-
-export type GetTranslationSettingQuery = {
-  getTranslationSetting?:  {
-    __typename: "TranslationSetting",
-    id: string,
-    translationlanguage?: string | null,
+    Language_name: string,
     user_id: string,
-    translation_language_types_id: string,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type ListTranslationSettingsQueryVariables = {
-  filter?: ModelTranslationSettingFilterInput | null,
+export type ListLanguagesQueryVariables = {
+  filter?: ModelLanguageFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListTranslationSettingsQuery = {
-  listTranslationSettings?:  {
-    __typename: "ModelTranslationSettingConnection",
+export type ListLanguagesQuery = {
+  listLanguages?:  {
+    __typename: "ModelLanguageConnection",
     items:  Array< {
-      __typename: "TranslationSetting",
+      __typename: "Language",
       id: string,
-      translationlanguage?: string | null,
+      Language_name: string,
       user_id: string,
-      translation_language_types_id: string,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -1060,21 +697,21 @@ export type ListTranslationSettingsQuery = {
   } | null,
 };
 
-export type ReportsByUser_idQueryVariables = {
+export type GesturesByUser_idQueryVariables = {
   user_id: string,
   sortDirection?: ModelSortDirection | null,
-  filter?: ModelReportFilterInput | null,
+  filter?: ModelGestureFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ReportsByUser_idQuery = {
-  reportsByUser_id?:  {
-    __typename: "ModelReportConnection",
+export type GesturesByUser_idQuery = {
+  gesturesByUser_id?:  {
+    __typename: "ModelGestureConnection",
     items:  Array< {
-      __typename: "Report",
+      __typename: "Gesture",
       id: string,
-      data: string,
+      sign_language: string,
       user_id: string,
       createdAt: string,
       updatedAt: string,
@@ -1083,47 +720,22 @@ export type ReportsByUser_idQuery = {
   } | null,
 };
 
-export type TranslationSettingsByUser_idQueryVariables = {
+export type LanguagesByUser_idQueryVariables = {
   user_id: string,
   sortDirection?: ModelSortDirection | null,
-  filter?: ModelTranslationSettingFilterInput | null,
+  filter?: ModelLanguageFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type TranslationSettingsByUser_idQuery = {
-  translationSettingsByUser_id?:  {
-    __typename: "ModelTranslationSettingConnection",
+export type LanguagesByUser_idQuery = {
+  languagesByUser_id?:  {
+    __typename: "ModelLanguageConnection",
     items:  Array< {
-      __typename: "TranslationSetting",
+      __typename: "Language",
       id: string,
-      translationlanguage?: string | null,
+      Language_name: string,
       user_id: string,
-      translation_language_types_id: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type TranslationSettingsByTranslation_language_types_idQueryVariables = {
-  translation_language_types_id: string,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelTranslationSettingFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type TranslationSettingsByTranslation_language_types_idQuery = {
-  translationSettingsByTranslation_language_types_id?:  {
-    __typename: "ModelTranslationSettingConnection",
-    items:  Array< {
-      __typename: "TranslationSetting",
-      id: string,
-      translationlanguage?: string | null,
-      user_id: string,
-      translation_language_types_id: string,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -1148,25 +760,24 @@ export type OnCreateUserSubscription = {
     id_number: string,
     cell_phone_no: string,
     access_type: string,
-    translationsetting?:  {
-      __typename: "ModelTranslationSettingConnection",
+    language?:  {
+      __typename: "ModelLanguageConnection",
       items:  Array< {
-        __typename: "TranslationSetting",
+        __typename: "Language",
         id: string,
-        translationlanguage?: string | null,
+        Language_name: string,
         user_id: string,
-        translation_language_types_id: string,
         createdAt: string,
         updatedAt: string,
       } | null >,
       nextToken?: string | null,
     } | null,
-    report?:  {
-      __typename: "ModelReportConnection",
+    gesture?:  {
+      __typename: "ModelGestureConnection",
       items:  Array< {
-        __typename: "Report",
+        __typename: "Gesture",
         id: string,
-        data: string,
+        sign_language: string,
         user_id: string,
         createdAt: string,
         updatedAt: string,
@@ -1195,25 +806,24 @@ export type OnUpdateUserSubscription = {
     id_number: string,
     cell_phone_no: string,
     access_type: string,
-    translationsetting?:  {
-      __typename: "ModelTranslationSettingConnection",
+    language?:  {
+      __typename: "ModelLanguageConnection",
       items:  Array< {
-        __typename: "TranslationSetting",
+        __typename: "Language",
         id: string,
-        translationlanguage?: string | null,
+        Language_name: string,
         user_id: string,
-        translation_language_types_id: string,
         createdAt: string,
         updatedAt: string,
       } | null >,
       nextToken?: string | null,
     } | null,
-    report?:  {
-      __typename: "ModelReportConnection",
+    gesture?:  {
+      __typename: "ModelGestureConnection",
       items:  Array< {
-        __typename: "Report",
+        __typename: "Gesture",
         id: string,
-        data: string,
+        sign_language: string,
         user_id: string,
         createdAt: string,
         updatedAt: string,
@@ -1242,149 +852,25 @@ export type OnDeleteUserSubscription = {
     id_number: string,
     cell_phone_no: string,
     access_type: string,
-    translationsetting?:  {
-      __typename: "ModelTranslationSettingConnection",
+    language?:  {
+      __typename: "ModelLanguageConnection",
       items:  Array< {
-        __typename: "TranslationSetting",
+        __typename: "Language",
         id: string,
-        translationlanguage?: string | null,
-        user_id: string,
-        translation_language_types_id: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    report?:  {
-      __typename: "ModelReportConnection",
-      items:  Array< {
-        __typename: "Report",
-        id: string,
-        data: string,
+        Language_name: string,
         user_id: string,
         createdAt: string,
         updatedAt: string,
       } | null >,
       nextToken?: string | null,
     } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnCreateAdminSubscriptionVariables = {
-  filter?: ModelSubscriptionAdminFilterInput | null,
-};
-
-export type OnCreateAdminSubscription = {
-  onCreateAdmin?:  {
-    __typename: "Admin",
-    id: string,
-    name: string,
-    surname: string,
-    email: string,
-    password: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnUpdateAdminSubscriptionVariables = {
-  filter?: ModelSubscriptionAdminFilterInput | null,
-};
-
-export type OnUpdateAdminSubscription = {
-  onUpdateAdmin?:  {
-    __typename: "Admin",
-    id: string,
-    name: string,
-    surname: string,
-    email: string,
-    password: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnDeleteAdminSubscriptionVariables = {
-  filter?: ModelSubscriptionAdminFilterInput | null,
-};
-
-export type OnDeleteAdminSubscription = {
-  onDeleteAdmin?:  {
-    __typename: "Admin",
-    id: string,
-    name: string,
-    surname: string,
-    email: string,
-    password: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnCreateReportSubscriptionVariables = {
-  filter?: ModelSubscriptionReportFilterInput | null,
-};
-
-export type OnCreateReportSubscription = {
-  onCreateReport?:  {
-    __typename: "Report",
-    id: string,
-    data: string,
-    user_id: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnUpdateReportSubscriptionVariables = {
-  filter?: ModelSubscriptionReportFilterInput | null,
-};
-
-export type OnUpdateReportSubscription = {
-  onUpdateReport?:  {
-    __typename: "Report",
-    id: string,
-    data: string,
-    user_id: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnDeleteReportSubscriptionVariables = {
-  filter?: ModelSubscriptionReportFilterInput | null,
-};
-
-export type OnDeleteReportSubscription = {
-  onDeleteReport?:  {
-    __typename: "Report",
-    id: string,
-    data: string,
-    user_id: string,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnCreateTranslationLanguageTypeSubscriptionVariables = {
-  filter?: ModelSubscriptionTranslationLanguageTypeFilterInput | null,
-};
-
-export type OnCreateTranslationLanguageTypeSubscription = {
-  onCreateTranslationLanguageType?:  {
-    __typename: "TranslationLanguageType",
-    id: string,
-    Language: string,
-    translationsetting?:  {
-      __typename: "ModelTranslationSettingConnection",
+    gesture?:  {
+      __typename: "ModelGestureConnection",
       items:  Array< {
-        __typename: "TranslationSetting",
+        __typename: "Gesture",
         id: string,
-        translationlanguage?: string | null,
+        sign_language: string,
         user_id: string,
-        translation_language_types_id: string,
         createdAt: string,
         updatedAt: string,
       } | null >,
@@ -1395,103 +881,91 @@ export type OnCreateTranslationLanguageTypeSubscription = {
   } | null,
 };
 
-export type OnUpdateTranslationLanguageTypeSubscriptionVariables = {
-  filter?: ModelSubscriptionTranslationLanguageTypeFilterInput | null,
+export type OnCreateGestureSubscriptionVariables = {
+  filter?: ModelSubscriptionGestureFilterInput | null,
 };
 
-export type OnUpdateTranslationLanguageTypeSubscription = {
-  onUpdateTranslationLanguageType?:  {
-    __typename: "TranslationLanguageType",
+export type OnCreateGestureSubscription = {
+  onCreateGesture?:  {
+    __typename: "Gesture",
     id: string,
-    Language: string,
-    translationsetting?:  {
-      __typename: "ModelTranslationSettingConnection",
-      items:  Array< {
-        __typename: "TranslationSetting",
-        id: string,
-        translationlanguage?: string | null,
-        user_id: string,
-        translation_language_types_id: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnDeleteTranslationLanguageTypeSubscriptionVariables = {
-  filter?: ModelSubscriptionTranslationLanguageTypeFilterInput | null,
-};
-
-export type OnDeleteTranslationLanguageTypeSubscription = {
-  onDeleteTranslationLanguageType?:  {
-    __typename: "TranslationLanguageType",
-    id: string,
-    Language: string,
-    translationsetting?:  {
-      __typename: "ModelTranslationSettingConnection",
-      items:  Array< {
-        __typename: "TranslationSetting",
-        id: string,
-        translationlanguage?: string | null,
-        user_id: string,
-        translation_language_types_id: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnCreateTranslationSettingSubscriptionVariables = {
-  filter?: ModelSubscriptionTranslationSettingFilterInput | null,
-};
-
-export type OnCreateTranslationSettingSubscription = {
-  onCreateTranslationSetting?:  {
-    __typename: "TranslationSetting",
-    id: string,
-    translationlanguage?: string | null,
+    sign_language: string,
     user_id: string,
-    translation_language_types_id: string,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type OnUpdateTranslationSettingSubscriptionVariables = {
-  filter?: ModelSubscriptionTranslationSettingFilterInput | null,
+export type OnUpdateGestureSubscriptionVariables = {
+  filter?: ModelSubscriptionGestureFilterInput | null,
 };
 
-export type OnUpdateTranslationSettingSubscription = {
-  onUpdateTranslationSetting?:  {
-    __typename: "TranslationSetting",
+export type OnUpdateGestureSubscription = {
+  onUpdateGesture?:  {
+    __typename: "Gesture",
     id: string,
-    translationlanguage?: string | null,
+    sign_language: string,
     user_id: string,
-    translation_language_types_id: string,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type OnDeleteTranslationSettingSubscriptionVariables = {
-  filter?: ModelSubscriptionTranslationSettingFilterInput | null,
+export type OnDeleteGestureSubscriptionVariables = {
+  filter?: ModelSubscriptionGestureFilterInput | null,
 };
 
-export type OnDeleteTranslationSettingSubscription = {
-  onDeleteTranslationSetting?:  {
-    __typename: "TranslationSetting",
+export type OnDeleteGestureSubscription = {
+  onDeleteGesture?:  {
+    __typename: "Gesture",
     id: string,
-    translationlanguage?: string | null,
+    sign_language: string,
     user_id: string,
-    translation_language_types_id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateLanguageSubscriptionVariables = {
+  filter?: ModelSubscriptionLanguageFilterInput | null,
+};
+
+export type OnCreateLanguageSubscription = {
+  onCreateLanguage?:  {
+    __typename: "Language",
+    id: string,
+    Language_name: string,
+    user_id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateLanguageSubscriptionVariables = {
+  filter?: ModelSubscriptionLanguageFilterInput | null,
+};
+
+export type OnUpdateLanguageSubscription = {
+  onUpdateLanguage?:  {
+    __typename: "Language",
+    id: string,
+    Language_name: string,
+    user_id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteLanguageSubscriptionVariables = {
+  filter?: ModelSubscriptionLanguageFilterInput | null,
+};
+
+export type OnDeleteLanguageSubscription = {
+  onDeleteLanguage?:  {
+    __typename: "Language",
+    id: string,
+    Language_name: string,
+    user_id: string,
     createdAt: string,
     updatedAt: string,
   } | null,

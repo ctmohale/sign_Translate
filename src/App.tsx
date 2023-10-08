@@ -46,8 +46,7 @@ import { useEffect, useState } from "react";
 import * as queries from "./graphql/queries";
 import { GraphQLQuery } from "@aws-amplify/api";
 import {
-  ListTranslationLanguageTypesQuery,
-  ListTranslationSettingsQuery,
+  ListLanguagesQuery,
   ListUsersQuery,
   OnUpdateUserSubscription,
 } from "./API";
@@ -60,7 +59,14 @@ import Settings from "./pages/Settings";
 import MainTranslate from "./context/translateLanguages";
 import UserTranslateSetting from "./context/translateSettings";
 import TestMainData from "./context/textData";
-
+import Admin from "./pages/Admin";
+import Users from "./pages/Users";
+import UserProfile from "./pages/UserProfile";
+import Gesture from "./pages/Gesture";
+import Language from "./pages/Language";
+import SelectedUserAdmin from "./context/selected_user";
+import { PrimeReactProvider, PrimeReactContext } from "primereact/api";
+import "primereact/resources/themes/lara-light-indigo/theme.css";
 Amplify.configure(awsExports);
 
 setupIonicReact();
@@ -72,11 +78,11 @@ const App: React.FC = () => {
   const [allTransLate, setAllTransLate]: any = useState();
   const [userTranslateSetting, setSerTranslateSetting]: any = useState();
   const [transData, setTransData]: any = useState("");
+  const [selectedUserA, setSelectedUserA]: any = useState();
 
   useEffect(() => {
     getAllUsers();
-    getAllTranslateData();
-    getUsersTranslateSettings();
+    getTranslateSetting();
   }, []);
 
   //Get all users
@@ -84,38 +90,22 @@ const App: React.FC = () => {
     const allUsers = await API.graphql<GraphQLQuery<ListUsersQuery>>({
       query: queries.listUsers,
     });
-    console.log(allUsers.data?.listUsers?.items);
     setUsers(allUsers.data?.listUsers?.items);
   }
 
+  //Get all translate settings
+  async function getTranslateSetting() {
+    const settingsData = await API.graphql<GraphQLQuery<ListLanguagesQuery>>({
+      query: queries.listLanguages,
+    });
+    setSerTranslateSetting(settingsData.data?.listLanguages?.items);
+  }
+
   useEffect(() => {
-    console.log(localStorage.getItem("user"));
     if (localStorage.getItem("user") != null) {
       setLoginUser(JSON.parse(localData));
     }
   }, []);
-
-  //Get all translate data
-  async function getAllTranslateData() {
-    const allUsers = await API.graphql<
-      GraphQLQuery<ListTranslationLanguageTypesQuery>
-    >({
-      query: queries.listTranslationLanguageTypes,
-    });
-    console.log(allUsers.data?.listTranslationLanguageTypes?.items);
-    setAllTransLate(allUsers.data?.listTranslationLanguageTypes?.items);
-  }
-
-  //Get all users translate settings
-  async function getUsersTranslateSettings() {
-    const allUsers = await API.graphql<
-      GraphQLQuery<ListTranslationSettingsQuery>
-    >({
-      query: queries.listTranslationSettings,
-    });
-    console.log(allUsers.data?.listTranslationSettings?.items);
-    setSerTranslateSetting(allUsers.data?.listTranslationSettings?.items);
-  }
 
   //Sub
 
@@ -128,36 +118,58 @@ const App: React.FC = () => {
               value={{ userTranslateSetting, setSerTranslateSetting }}
             >
               <TestMainData.Provider value={{ transData, setTransData }}>
-                <IonReactRouter>
-                  <IonTabs>
-                    <IonRouterOutlet>
-                      <Authenticator></Authenticator>
-                      <Route exact path="/home">
-                        <Home />
-                      </Route>
-                      <Route exact path="/registration">
-                        <Registration />
-                      </Route>
-                      <Route exact path="/profile">
-                        <Profile />
-                      </Route>
-                      <Route exact path="/settings">
-                        <Settings />
-                      </Route>
-                      <Route exact path="/Translate">
-                        <Translate />
-                      </Route>
-                      <Route exact path="/">
-                        <Redirect to="/home" />
-                      </Route>
-                    </IonRouterOutlet>
+                <SelectedUserAdmin.Provider
+                  value={{ selectedUserA, setSelectedUserA }}
+                >
+                  <IonReactRouter>
+                    <IonTabs>
+                      <IonRouterOutlet>
+                        <Authenticator></Authenticator>
+                        <Route exact path="/home">
+                          <Home />
+                        </Route>
+                        <Route exact path="/registration">
+                          <Registration />
+                        </Route>
+                        <Route exact path="/profile">
+                          <Profile />
+                        </Route>
+                        <Route exact path="/settings">
+                          <Settings />
+                        </Route>
 
-                    <IonTabBar
-                      slot="bottom"
-                      style={{ display: "none" }}
-                    ></IonTabBar>
-                  </IonTabs>
-                </IonReactRouter>
+                        <Route exact path="/users">
+                          <Users />
+                        </Route>
+                        <Route exact path="/gesture">
+                          <Gesture />
+                        </Route>
+
+                        <Route exact path="/language">
+                          <Language />
+                        </Route>
+                        <Route exact path="/admin">
+                          <Admin />
+                        </Route>
+
+                        <Route exact path="/userprofile">
+                          <UserProfile />
+                        </Route>
+                        <Route exact path="/Translate">
+                          <Translate />
+                        </Route>
+                        <Route exact path="/">
+                          <Redirect to="/home" />
+                        </Route>
+                      </IonRouterOutlet>
+
+                      <IonTabBar
+                        slot="bottom"
+                        style={{ display: "none" }}
+                      ></IonTabBar>
+                    </IonTabs>
+                  </IonReactRouter>
+                </SelectedUserAdmin.Provider>
               </TestMainData.Provider>
             </UserTranslateSetting.Provider>
           </MainTranslate.Provider>

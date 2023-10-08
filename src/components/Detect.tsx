@@ -10,7 +10,6 @@ import React, { useRef, useState, useEffect, useContext } from "react";
 ///////// NEW STUFF ADDED USE STATE
 
 // import logo from './logo.svg';
-import * as tf from "@tensorflow/tfjs";
 import * as handpose from "@tensorflow-models/handpose";
 import Webcam from "react-webcam";
 import "./Detect.css";
@@ -27,7 +26,11 @@ import { YesGesture } from "../Models/Yes";
 import { HelloGesture } from "../Models/Hello";
 
 import TestMainData from "../context/textData";
-
+import { CreateGestureInput, CreateGestureMutation } from "../API";
+import { API } from "aws-amplify";
+import { GraphQLQuery } from "@aws-amplify/api";
+import * as mutations from "../graphql/mutations";
+import LoginData from "../context/login";
 ///////// NEW STUFF IMPORTS
 
 function Detect() {
@@ -36,15 +39,15 @@ function Detect() {
   const [textData, setTextData]: any = useState("hello");
   const { transData, setTransData }: any = useContext(TestMainData);
   const [highestScore, setHighestScore] = useState(-Infinity);
-
+  const { loginUser, setLoginUser }: any = useContext(LoginData);
   ///////// NEW STUFF ADDED STATE HOOK
   const [emoji, setEmoji] = useState(null);
   const images = { thumbs_up: thumbs_up, victory: victory };
+
   ///////// NEW STUFF ADDED STATE HOOK
 
   const runHandpose = async () => {
     const net = await handpose.load();
-    console.log("Handpose model loaded.");
     //  Loop and detect hands
     setInterval(() => {
       detect(net);
@@ -79,7 +82,6 @@ function Detect() {
 
       if (hand.length > 0) {
         const GE = new fp.GestureEstimator([
-          fp.Gestures.VictoryGesture,
           loveYouGesture,
           thankYouGesture,
           NoGesture,
@@ -87,7 +89,7 @@ function Detect() {
           HelloGesture,
         ]);
         const gesture = await GE.estimate(hand[0].landmarks, 4);
-        setTransData("Hello mn");
+
         if (gesture.gestures !== undefined && gesture.gestures.length > 0) {
           console.log(gesture.gestures);
 
@@ -96,6 +98,7 @@ function Detect() {
               const score = data_element.score;
               if (score > highestScore) {
                 // If a higher score is found, update the state
+                setTranslateFunction(data_element.name);
                 setTransData(data_element.name);
               }
             }
@@ -111,7 +114,6 @@ function Detect() {
           // setEmoji(gesture.gestures[maxConfidence].name);
 
           setTextData("Test");
-          console.log(emoji);
         }
       }
 
@@ -122,6 +124,23 @@ function Detect() {
       drawHand(hand, ctx);
     }
   };
+
+  function setTranslateFunction(data: any) {
+    addTranslateData(data);
+    return true;
+  }
+
+  async function addTranslateData(sign: any) {
+    const todoDetails: CreateGestureInput = {
+      sign_language: sign,
+      user_id: loginUser.id,
+    };
+
+    const newTodo = await API.graphql<GraphQLQuery<CreateGestureMutation>>({
+      query: mutations.createGesture,
+      variables: { input: todoDetails },
+    });
+  }
 
   useEffect(() => {
     runHandpose();

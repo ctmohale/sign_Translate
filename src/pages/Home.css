@@ -69,12 +69,78 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+.col_t , .main_t_row{
+    margin: 0 !important;
+    padding: 0 !important;
+    border-radius: 30px;
+}
+
+.main_t_row{
+    background-color: rgb(255, 255, 255);
+}
+#text-inpu-da{
+    font-size: 27px !important;
+    border-radius: 20px !important;
+}
+
+.img_data_set{
+    border-left: 5px solid rgb(133, 133, 133);
+    min-height: 80px !important;
+    max-height: 100px !important;
+    min-width: 100px !important;
+    border-radius: 200px;
+    border-bottom: 5px solid rgb(173, 173, 173) !important;
+}
 .card-translate{
     box-shadow: none;
     min-height: 400px;
     border-radius: 20px;
 }
 
+.col_style{
+    padding-left: 5px !important;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.11);
+}
+
+.p-column-title{
+    padding-left: 5px !important;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+ion-alert.custom-alert {
+    --backdrop-opacity: 0.7;
+  }
+  
+  .custom-alert .alert-button-group {
+    padding: 8px;
+  }
+  
+  button.alert-button.alert-button-confirm {
+    background-color: var(--ion-color-success);
+    color: var(--ion-color-success-contrast);
+  }
+  
+  .md button.alert-button.alert-button-confirm {
+    border-radius: 4px;
+  }
+  
+  .ios .custom-alert button.alert-button {
+    border: 0.55px solid rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.2);
+  }
+  
+  .ios button.alert-button.alert-button-cancel {
+    border-right: 0;
+    border-bottom-left-radius: 13px;
+    border-top-left-radius: 13px;
+  }
+  
+  .ios button.alert-button.alert-button-confirm {
+    border-bottom-right-radius: 13px;
+    border-top-right-radius: 13px;
+  }
 
 @media (max-width: 576px) { 
 

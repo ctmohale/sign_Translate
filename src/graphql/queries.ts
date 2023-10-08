@@ -15,12 +15,11 @@ export const getUser = /* GraphQL */ `
       id_number
       cell_phone_no
       access_type
-      translationsetting {
+      language {
         items {
           id
-          translationlanguage
+          Language_name
           user_id
-          translation_language_types_id
           createdAt
           updatedAt
           __typename
@@ -28,10 +27,10 @@ export const getUser = /* GraphQL */ `
         nextToken
         __typename
       }
-      report {
+      gesture {
         items {
           id
-          data
+          sign_language
           user_id
           createdAt
           updatedAt
@@ -64,11 +63,11 @@ export const listUsers = /* GraphQL */ `
         id_number
         cell_phone_no
         access_type
-        translationsetting {
+        language {
           nextToken
           __typename
         }
-        report {
+        gesture {
           nextToken
           __typename
         }
@@ -81,47 +80,11 @@ export const listUsers = /* GraphQL */ `
     }
   }
 `;
-export const getAdmin = /* GraphQL */ `
-  query GetAdmin($id: ID!) {
-    getAdmin(id: $id) {
+export const getGesture = /* GraphQL */ `
+  query GetGesture($id: ID!) {
+    getGesture(id: $id) {
       id
-      name
-      surname
-      email
-      password
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const listAdmins = /* GraphQL */ `
-  query ListAdmins(
-    $filter: ModelAdminFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listAdmins(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        name
-        surname
-        email
-        password
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-export const getReport = /* GraphQL */ `
-  query GetReport($id: ID!) {
-    getReport(id: $id) {
-      id
-      data
+      sign_language
       user_id
       createdAt
       updatedAt
@@ -129,16 +92,16 @@ export const getReport = /* GraphQL */ `
     }
   }
 `;
-export const listReports = /* GraphQL */ `
-  query ListReports(
-    $filter: ModelReportFilterInput
+export const listGestures = /* GraphQL */ `
+  query ListGestures(
+    $filter: ModelGestureFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listReports(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listGestures(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        data
+        sign_language
         user_id
         createdAt
         updatedAt
@@ -149,86 +112,29 @@ export const listReports = /* GraphQL */ `
     }
   }
 `;
-export const getTranslationLanguageType = /* GraphQL */ `
-  query GetTranslationLanguageType($id: ID!) {
-    getTranslationLanguageType(id: $id) {
+export const getLanguage = /* GraphQL */ `
+  query GetLanguage($id: ID!) {
+    getLanguage(id: $id) {
       id
-      Language
-      translationsetting {
-        items {
-          id
-          translationlanguage
-          user_id
-          translation_language_types_id
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const listTranslationLanguageTypes = /* GraphQL */ `
-  query ListTranslationLanguageTypes(
-    $filter: ModelTranslationLanguageTypeFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listTranslationLanguageTypes(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        Language
-        translationsetting {
-          nextToken
-          __typename
-        }
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-export const getTranslationSetting = /* GraphQL */ `
-  query GetTranslationSetting($id: ID!) {
-    getTranslationSetting(id: $id) {
-      id
-      translationlanguage
+      Language_name
       user_id
-      translation_language_types_id
       createdAt
       updatedAt
       __typename
     }
   }
 `;
-export const listTranslationSettings = /* GraphQL */ `
-  query ListTranslationSettings(
-    $filter: ModelTranslationSettingFilterInput
+export const listLanguages = /* GraphQL */ `
+  query ListLanguages(
+    $filter: ModelLanguageFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listTranslationSettings(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
+    listLanguages(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        translationlanguage
+        Language_name
         user_id
-        translation_language_types_id
         createdAt
         updatedAt
         __typename
@@ -238,15 +144,15 @@ export const listTranslationSettings = /* GraphQL */ `
     }
   }
 `;
-export const reportsByUser_id = /* GraphQL */ `
-  query ReportsByUser_id(
+export const gesturesByUser_id = /* GraphQL */ `
+  query GesturesByUser_id(
     $user_id: ID!
     $sortDirection: ModelSortDirection
-    $filter: ModelReportFilterInput
+    $filter: ModelGestureFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    reportsByUser_id(
+    gesturesByUser_id(
       user_id: $user_id
       sortDirection: $sortDirection
       filter: $filter
@@ -255,7 +161,7 @@ export const reportsByUser_id = /* GraphQL */ `
     ) {
       items {
         id
-        data
+        sign_language
         user_id
         createdAt
         updatedAt
@@ -266,15 +172,15 @@ export const reportsByUser_id = /* GraphQL */ `
     }
   }
 `;
-export const translationSettingsByUser_id = /* GraphQL */ `
-  query TranslationSettingsByUser_id(
+export const languagesByUser_id = /* GraphQL */ `
+  query LanguagesByUser_id(
     $user_id: ID!
     $sortDirection: ModelSortDirection
-    $filter: ModelTranslationSettingFilterInput
+    $filter: ModelLanguageFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    translationSettingsByUser_id(
+    languagesByUser_id(
       user_id: $user_id
       sortDirection: $sortDirection
       filter: $filter
@@ -283,38 +189,8 @@ export const translationSettingsByUser_id = /* GraphQL */ `
     ) {
       items {
         id
-        translationlanguage
+        Language_name
         user_id
-        translation_language_types_id
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-export const translationSettingsByTranslation_language_types_id = /* GraphQL */ `
-  query TranslationSettingsByTranslation_language_types_id(
-    $translation_language_types_id: ID!
-    $sortDirection: ModelSortDirection
-    $filter: ModelTranslationSettingFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    translationSettingsByTranslation_language_types_id(
-      translation_language_types_id: $translation_language_types_id
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        translationlanguage
-        user_id
-        translation_language_types_id
         createdAt
         updatedAt
         __typename

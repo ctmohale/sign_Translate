@@ -1,6 +1,8 @@
 import {
+  IonAlert,
   IonButton,
   IonButtons,
+  IonCol,
   IonContent,
   IonHeader,
   IonInput,
@@ -20,6 +22,8 @@ import { FaUserPen } from "react-icons/fa6";
 import {
   CreateUserInput,
   CreateUserMutation,
+  DeleteUserInput,
+  DeleteUserMutation,
   UpdateUserInput,
   UpdateUserMutation,
 } from "../API";
@@ -27,6 +31,11 @@ import { GraphQLQuery } from "@aws-amplify/api";
 import * as mutations from "../graphql/mutations";
 import Swal from "sweetalert2";
 import LoginData from "../context/login";
+import { MdAdminPanelSettings } from "react-icons/md";
+import { TbLanguageKatakana } from "react-icons/tb";
+import { FaHandsWash } from "react-icons/fa";
+import { PiUsersThreeFill } from "react-icons/pi";
+import { AiFillDashboard } from "react-icons/ai";
 
 const Profile: React.FC = () => {
   //User details
@@ -167,6 +176,31 @@ const Profile: React.FC = () => {
     return true;
   }
 
+  //Delete user profile
+
+  async function deleteUser() {
+    const userDetails: DeleteUserInput = {
+      id: loginUser.id,
+    };
+
+    const deleteUserData = await API.graphql<GraphQLQuery<DeleteUserMutation>>({
+      query: mutations.deleteUser,
+      variables: { input: userDetails },
+    });
+
+    Toast.fire({
+      icon: "warning",
+      title: "User profile deleted successfully!",
+    });
+
+    localStorage.removeItem("user");
+    setLoginUser(null);
+
+    setInterval(() => {
+      window.location.replace("/");
+    }, 3000);
+  }
+
   return (
     <IonPage>
       <IonContent fullscreen>
@@ -174,9 +208,57 @@ const Profile: React.FC = () => {
         <Nav />
 
         <section className="about-section  bg-light">
-          <h2 className="about-sub text-secondary pb-5">
-            User profile section
-          </h2>
+          {loginUser && loginUser.access_type === "admin" ? (
+            <h2 className="about-sub text-secondary pb-2">
+              <MdAdminPanelSettings size="30" /> Admin profile section
+            </h2>
+          ) : (
+            <h2 className="about-sub text-secondary pb-2">
+              User profile section
+            </h2>
+          )}
+          {loginUser && loginUser.access_type === "admin" && (
+            <IonCol>
+              <ul className="nav nav-tabs">
+                <li className="nav-item">
+                  <IonButton
+                    fill="clear"
+                    color="success"
+                    className="nav-link active"
+                    aria-current="page"
+                    routerLink="/admin"
+                  >
+                    <AiFillDashboard size="22" />
+                    Dashboard
+                  </IonButton>
+                </li>
+                <li className="nav-item">
+                  <IonButton
+                    fill="clear"
+                    color="medium"
+                    className="nav-link"
+                    aria-current="page"
+                    routerLink="/users"
+                  >
+                    <PiUsersThreeFill size="22" />
+                    Users
+                  </IonButton>
+                </li>
+                <li className="nav-item">
+                  <IonButton
+                    fill="clear"
+                    color="medium"
+                    className="nav-link"
+                    aria-current="page"
+                    routerLink="/gesture"
+                  >
+                    <FaHandsWash size="22" />
+                    Gesture
+                  </IonButton>
+                </li>
+              </ul>
+            </IonCol>
+          )}
 
           {loginUser != null ? (
             <>
@@ -247,6 +329,7 @@ const Profile: React.FC = () => {
                   <IonItem>
                     <IonInput
                       label="ID Number"
+                      disabled
                       onInput={(e: any) => setIdNumber(e.target.value)}
                       value={idNumber}
                       labelPlacement="floating"
@@ -272,9 +355,39 @@ const Profile: React.FC = () => {
                   >
                     Update Profile
                   </IonButton>
+                  <IonButton id="present-alert" color="danger" shape="round">
+                    Delete Profile
+                  </IonButton>
+                  <IonAlert
+                    header="Are you sure you want to delete your profile!"
+                    trigger="present-alert"
+                    buttons={[
+                      {
+                        text: "Cancel",
+                        role: "cancel",
+                        handler: () => {
+                          console.log("Alert canceled");
+                        },
+                      },
+                      {
+                        text: "OK",
+                        role: "confirm",
+                        handler: () => {
+                          deleteUser();
+                        },
+                      },
+                    ]}
+                    onDidDismiss={({ detail }) =>
+                      console.log(`Dismissed with role: ${detail.role}`)
+                    }
+                  ></IonAlert>
                 </div>
                 <div className="col-sm-6 text-secondary p-5">
-                  <FaUserPen size="200" />
+                  {loginUser && loginUser.access_type === "admin" ? (
+                    <MdAdminPanelSettings size="200" />
+                  ) : (
+                    <FaUserPen size="200" />
+                  )}
                 </div>
               </div>
             </>

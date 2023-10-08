@@ -18,12 +18,11 @@ export const createUser = /* GraphQL */ `
       id_number
       cell_phone_no
       access_type
-      translationsetting {
+      language {
         items {
           id
-          translationlanguage
+          Language_name
           user_id
-          translation_language_types_id
           createdAt
           updatedAt
           __typename
@@ -31,10 +30,10 @@ export const createUser = /* GraphQL */ `
         nextToken
         __typename
       }
-      report {
+      gesture {
         items {
           id
-          data
+          sign_language
           user_id
           createdAt
           updatedAt
@@ -65,12 +64,11 @@ export const updateUser = /* GraphQL */ `
       id_number
       cell_phone_no
       access_type
-      translationsetting {
+      language {
         items {
           id
-          translationlanguage
+          Language_name
           user_id
-          translation_language_types_id
           createdAt
           updatedAt
           __typename
@@ -78,10 +76,10 @@ export const updateUser = /* GraphQL */ `
         nextToken
         __typename
       }
-      report {
+      gesture {
         items {
           id
-          data
+          sign_language
           user_id
           createdAt
           updatedAt
@@ -112,23 +110,10 @@ export const deleteUser = /* GraphQL */ `
       id_number
       cell_phone_no
       access_type
-      translationsetting {
+      language {
         items {
           id
-          translationlanguage
-          user_id
-          translation_language_types_id
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      report {
-        items {
-          id
-          data
+          Language_name
           user_id
           createdAt
           updatedAt
@@ -137,122 +122,11 @@ export const deleteUser = /* GraphQL */ `
         nextToken
         __typename
       }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const createAdmin = /* GraphQL */ `
-  mutation CreateAdmin(
-    $input: CreateAdminInput!
-    $condition: ModelAdminConditionInput
-  ) {
-    createAdmin(input: $input, condition: $condition) {
-      id
-      name
-      surname
-      email
-      password
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const updateAdmin = /* GraphQL */ `
-  mutation UpdateAdmin(
-    $input: UpdateAdminInput!
-    $condition: ModelAdminConditionInput
-  ) {
-    updateAdmin(input: $input, condition: $condition) {
-      id
-      name
-      surname
-      email
-      password
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const deleteAdmin = /* GraphQL */ `
-  mutation DeleteAdmin(
-    $input: DeleteAdminInput!
-    $condition: ModelAdminConditionInput
-  ) {
-    deleteAdmin(input: $input, condition: $condition) {
-      id
-      name
-      surname
-      email
-      password
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const createReport = /* GraphQL */ `
-  mutation CreateReport(
-    $input: CreateReportInput!
-    $condition: ModelReportConditionInput
-  ) {
-    createReport(input: $input, condition: $condition) {
-      id
-      data
-      user_id
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const updateReport = /* GraphQL */ `
-  mutation UpdateReport(
-    $input: UpdateReportInput!
-    $condition: ModelReportConditionInput
-  ) {
-    updateReport(input: $input, condition: $condition) {
-      id
-      data
-      user_id
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const deleteReport = /* GraphQL */ `
-  mutation DeleteReport(
-    $input: DeleteReportInput!
-    $condition: ModelReportConditionInput
-  ) {
-    deleteReport(input: $input, condition: $condition) {
-      id
-      data
-      user_id
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const createTranslationLanguageType = /* GraphQL */ `
-  mutation CreateTranslationLanguageType(
-    $input: CreateTranslationLanguageTypeInput!
-    $condition: ModelTranslationLanguageTypeConditionInput
-  ) {
-    createTranslationLanguageType(input: $input, condition: $condition) {
-      id
-      Language
-      translationsetting {
+      gesture {
         items {
           id
-          translationlanguage
+          sign_language
           user_id
-          translation_language_types_id
           createdAt
           updatedAt
           __typename
@@ -266,102 +140,90 @@ export const createTranslationLanguageType = /* GraphQL */ `
     }
   }
 `;
-export const updateTranslationLanguageType = /* GraphQL */ `
-  mutation UpdateTranslationLanguageType(
-    $input: UpdateTranslationLanguageTypeInput!
-    $condition: ModelTranslationLanguageTypeConditionInput
+export const createGesture = /* GraphQL */ `
+  mutation CreateGesture(
+    $input: CreateGestureInput!
+    $condition: ModelGestureConditionInput
   ) {
-    updateTranslationLanguageType(input: $input, condition: $condition) {
+    createGesture(input: $input, condition: $condition) {
       id
-      Language
-      translationsetting {
-        items {
-          id
-          translationlanguage
-          user_id
-          translation_language_types_id
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const deleteTranslationLanguageType = /* GraphQL */ `
-  mutation DeleteTranslationLanguageType(
-    $input: DeleteTranslationLanguageTypeInput!
-    $condition: ModelTranslationLanguageTypeConditionInput
-  ) {
-    deleteTranslationLanguageType(input: $input, condition: $condition) {
-      id
-      Language
-      translationsetting {
-        items {
-          id
-          translationlanguage
-          user_id
-          translation_language_types_id
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const createTranslationSetting = /* GraphQL */ `
-  mutation CreateTranslationSetting(
-    $input: CreateTranslationSettingInput!
-    $condition: ModelTranslationSettingConditionInput
-  ) {
-    createTranslationSetting(input: $input, condition: $condition) {
-      id
-      translationlanguage
+      sign_language
       user_id
-      translation_language_types_id
       createdAt
       updatedAt
       __typename
     }
   }
 `;
-export const updateTranslationSetting = /* GraphQL */ `
-  mutation UpdateTranslationSetting(
-    $input: UpdateTranslationSettingInput!
-    $condition: ModelTranslationSettingConditionInput
+export const updateGesture = /* GraphQL */ `
+  mutation UpdateGesture(
+    $input: UpdateGestureInput!
+    $condition: ModelGestureConditionInput
   ) {
-    updateTranslationSetting(input: $input, condition: $condition) {
+    updateGesture(input: $input, condition: $condition) {
       id
-      translationlanguage
+      sign_language
       user_id
-      translation_language_types_id
       createdAt
       updatedAt
       __typename
     }
   }
 `;
-export const deleteTranslationSetting = /* GraphQL */ `
-  mutation DeleteTranslationSetting(
-    $input: DeleteTranslationSettingInput!
-    $condition: ModelTranslationSettingConditionInput
+export const deleteGesture = /* GraphQL */ `
+  mutation DeleteGesture(
+    $input: DeleteGestureInput!
+    $condition: ModelGestureConditionInput
   ) {
-    deleteTranslationSetting(input: $input, condition: $condition) {
+    deleteGesture(input: $input, condition: $condition) {
       id
-      translationlanguage
+      sign_language
       user_id
-      translation_language_types_id
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const createLanguage = /* GraphQL */ `
+  mutation CreateLanguage(
+    $input: CreateLanguageInput!
+    $condition: ModelLanguageConditionInput
+  ) {
+    createLanguage(input: $input, condition: $condition) {
+      id
+      Language_name
+      user_id
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateLanguage = /* GraphQL */ `
+  mutation UpdateLanguage(
+    $input: UpdateLanguageInput!
+    $condition: ModelLanguageConditionInput
+  ) {
+    updateLanguage(input: $input, condition: $condition) {
+      id
+      Language_name
+      user_id
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteLanguage = /* GraphQL */ `
+  mutation DeleteLanguage(
+    $input: DeleteLanguageInput!
+    $condition: ModelLanguageConditionInput
+  ) {
+    deleteLanguage(input: $input, condition: $condition) {
+      id
+      Language_name
+      user_id
       createdAt
       updatedAt
       __typename

@@ -216,16 +216,61 @@ const Registration: React.FC = () => {
 
     //ID number
     if (type === "ID") {
-      if (data.length < 13 || data.length > 13) {
+      console.log(validateSouthAfricanIdNumber(data));
+      if (validateSouthAfricanIdNumber(data) === true) {
+        return true;
+      } else {
         Toast.fire({
           icon: "warning",
-          title: type + " must be 13 numbers",
+          title: "Please enter a valid id number!",
         });
 
         return false;
       }
     }
 
+    return true;
+  }
+
+  function validateSouthAfricanIdNumber(idNumber: any) {
+    // Check if idNumber is not a string, and attempt to convert it to a string
+    if (typeof idNumber !== "string") {
+      idNumber = idNumber.toString();
+    }
+
+    // Remove any spaces from the input
+    idNumber = idNumber.replace(/\s/g, "");
+
+    // Check if the ID number is 13 characters in length
+    if (idNumber.length !== 13) {
+      return "Invalid ID number length. It should be 13 characters.";
+    }
+
+    // Check if all characters are digits
+    if (!/^\d+$/.test(idNumber)) {
+      return "ID number should only contain numeric digits.";
+    }
+
+    // Extract the date of birth and nationality digits
+    const dateOfBirth = idNumber.substring(0, 6);
+    const nationalityDigit = parseInt(idNumber.charAt(6), 10);
+
+    // Extract the gender digit
+    const genderDigit = parseInt(idNumber.charAt(7), 10);
+
+    // Check nationality digit
+    if (![0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(nationalityDigit)) {
+      return "Invalid nationality digit.";
+    }
+
+    // Check gender digit
+    if (genderDigit < 0 || genderDigit > 9) {
+      return "Invalid gender digit.";
+    }
+
+    // ... Rest of the validation code ...
+
+    // If all checks pass, the ID is valid
     return true;
   }
 

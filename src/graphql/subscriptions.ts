@@ -15,12 +15,11 @@ export const onCreateUser = /* GraphQL */ `
       id_number
       cell_phone_no
       access_type
-      translationsetting {
+      language {
         items {
           id
-          translationlanguage
+          Language_name
           user_id
-          translation_language_types_id
           createdAt
           updatedAt
           __typename
@@ -28,10 +27,10 @@ export const onCreateUser = /* GraphQL */ `
         nextToken
         __typename
       }
-      report {
+      gesture {
         items {
           id
-          data
+          sign_language
           user_id
           createdAt
           updatedAt
@@ -59,12 +58,11 @@ export const onUpdateUser = /* GraphQL */ `
       id_number
       cell_phone_no
       access_type
-      translationsetting {
+      language {
         items {
           id
-          translationlanguage
+          Language_name
           user_id
-          translation_language_types_id
           createdAt
           updatedAt
           __typename
@@ -72,10 +70,10 @@ export const onUpdateUser = /* GraphQL */ `
         nextToken
         __typename
       }
-      report {
+      gesture {
         items {
           id
-          data
+          sign_language
           user_id
           createdAt
           updatedAt
@@ -103,23 +101,10 @@ export const onDeleteUser = /* GraphQL */ `
       id_number
       cell_phone_no
       access_type
-      translationsetting {
+      language {
         items {
           id
-          translationlanguage
-          user_id
-          translation_language_types_id
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      report {
-        items {
-          id
-          data
+          Language_name
           user_id
           createdAt
           updatedAt
@@ -128,103 +113,11 @@ export const onDeleteUser = /* GraphQL */ `
         nextToken
         __typename
       }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onCreateAdmin = /* GraphQL */ `
-  subscription OnCreateAdmin($filter: ModelSubscriptionAdminFilterInput) {
-    onCreateAdmin(filter: $filter) {
-      id
-      name
-      surname
-      email
-      password
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onUpdateAdmin = /* GraphQL */ `
-  subscription OnUpdateAdmin($filter: ModelSubscriptionAdminFilterInput) {
-    onUpdateAdmin(filter: $filter) {
-      id
-      name
-      surname
-      email
-      password
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onDeleteAdmin = /* GraphQL */ `
-  subscription OnDeleteAdmin($filter: ModelSubscriptionAdminFilterInput) {
-    onDeleteAdmin(filter: $filter) {
-      id
-      name
-      surname
-      email
-      password
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onCreateReport = /* GraphQL */ `
-  subscription OnCreateReport($filter: ModelSubscriptionReportFilterInput) {
-    onCreateReport(filter: $filter) {
-      id
-      data
-      user_id
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onUpdateReport = /* GraphQL */ `
-  subscription OnUpdateReport($filter: ModelSubscriptionReportFilterInput) {
-    onUpdateReport(filter: $filter) {
-      id
-      data
-      user_id
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onDeleteReport = /* GraphQL */ `
-  subscription OnDeleteReport($filter: ModelSubscriptionReportFilterInput) {
-    onDeleteReport(filter: $filter) {
-      id
-      data
-      user_id
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onCreateTranslationLanguageType = /* GraphQL */ `
-  subscription OnCreateTranslationLanguageType(
-    $filter: ModelSubscriptionTranslationLanguageTypeFilterInput
-  ) {
-    onCreateTranslationLanguageType(filter: $filter) {
-      id
-      Language
-      translationsetting {
+      gesture {
         items {
           id
-          translationlanguage
+          sign_language
           user_id
-          translation_language_types_id
           createdAt
           updatedAt
           __typename
@@ -238,97 +131,72 @@ export const onCreateTranslationLanguageType = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateTranslationLanguageType = /* GraphQL */ `
-  subscription OnUpdateTranslationLanguageType(
-    $filter: ModelSubscriptionTranslationLanguageTypeFilterInput
-  ) {
-    onUpdateTranslationLanguageType(filter: $filter) {
+export const onCreateGesture = /* GraphQL */ `
+  subscription OnCreateGesture($filter: ModelSubscriptionGestureFilterInput) {
+    onCreateGesture(filter: $filter) {
       id
-      Language
-      translationsetting {
-        items {
-          id
-          translationlanguage
-          user_id
-          translation_language_types_id
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onDeleteTranslationLanguageType = /* GraphQL */ `
-  subscription OnDeleteTranslationLanguageType(
-    $filter: ModelSubscriptionTranslationLanguageTypeFilterInput
-  ) {
-    onDeleteTranslationLanguageType(filter: $filter) {
-      id
-      Language
-      translationsetting {
-        items {
-          id
-          translationlanguage
-          user_id
-          translation_language_types_id
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onCreateTranslationSetting = /* GraphQL */ `
-  subscription OnCreateTranslationSetting(
-    $filter: ModelSubscriptionTranslationSettingFilterInput
-  ) {
-    onCreateTranslationSetting(filter: $filter) {
-      id
-      translationlanguage
+      sign_language
       user_id
-      translation_language_types_id
       createdAt
       updatedAt
       __typename
     }
   }
 `;
-export const onUpdateTranslationSetting = /* GraphQL */ `
-  subscription OnUpdateTranslationSetting(
-    $filter: ModelSubscriptionTranslationSettingFilterInput
-  ) {
-    onUpdateTranslationSetting(filter: $filter) {
+export const onUpdateGesture = /* GraphQL */ `
+  subscription OnUpdateGesture($filter: ModelSubscriptionGestureFilterInput) {
+    onUpdateGesture(filter: $filter) {
       id
-      translationlanguage
+      sign_language
       user_id
-      translation_language_types_id
       createdAt
       updatedAt
       __typename
     }
   }
 `;
-export const onDeleteTranslationSetting = /* GraphQL */ `
-  subscription OnDeleteTranslationSetting(
-    $filter: ModelSubscriptionTranslationSettingFilterInput
-  ) {
-    onDeleteTranslationSetting(filter: $filter) {
+export const onDeleteGesture = /* GraphQL */ `
+  subscription OnDeleteGesture($filter: ModelSubscriptionGestureFilterInput) {
+    onDeleteGesture(filter: $filter) {
       id
-      translationlanguage
+      sign_language
       user_id
-      translation_language_types_id
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onCreateLanguage = /* GraphQL */ `
+  subscription OnCreateLanguage($filter: ModelSubscriptionLanguageFilterInput) {
+    onCreateLanguage(filter: $filter) {
+      id
+      Language_name
+      user_id
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateLanguage = /* GraphQL */ `
+  subscription OnUpdateLanguage($filter: ModelSubscriptionLanguageFilterInput) {
+    onUpdateLanguage(filter: $filter) {
+      id
+      Language_name
+      user_id
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteLanguage = /* GraphQL */ `
+  subscription OnDeleteLanguage($filter: ModelSubscriptionLanguageFilterInput) {
+    onDeleteLanguage(filter: $filter) {
+      id
+      Language_name
+      user_id
       createdAt
       updatedAt
       __typename
