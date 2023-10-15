@@ -1,24 +1,19 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import "./Nav.css";
 import {
   IonButton,
   IonButtons,
   IonContent,
   IonHeader,
-  IonImg,
   IonInput,
   IonItem,
   IonLabel,
   IonModal,
-  IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { Auth } from "aws-amplify";
-import { withAuthenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 import { CgMenuRight } from "react-icons/cg";
 import { TbHome2 } from "react-icons/tb";
-import { FaBeer } from "react-icons/fa";
 import { BiLogOutCircle, BiUser, BiUserVoice } from "react-icons/bi";
 import {
   AiOutlineDashboard,
@@ -26,7 +21,6 @@ import {
   AiOutlineSetting,
 } from "react-icons/ai";
 import LoginData from "../context/login";
-import { OverlayEventDetail } from "@ionic/react/dist/types/components/react-component-lib/interfaces";
 import AllUsers from "../context/users";
 import Swal from "sweetalert2";
 import { MdAdminPanelSettings } from "react-icons/md";
@@ -35,11 +29,10 @@ function Nav() {
   const { loginUser, setLoginUser }: any = useContext(LoginData);
   const [email, setEmail]: any = useState("");
   const [password, setPassword]: any = useState("");
-  const { users, setUsers }: any = useContext(AllUsers);
-  const [loginState, setLoginState]: any = useState(false);
+  const { users }: any = useContext(AllUsers);
+  const [setLoginState]: any = useState(false);
   const [isOpen, setIsOpen]: any = useState(false);
   const modal = useRef<HTMLIonModalElement>(null);
-  const input = useRef<HTMLIonInputElement>(null);
 
   const Toast = Swal.mixin({
     toast: true,
@@ -53,20 +46,17 @@ function Nav() {
     },
   });
 
-  //Logout
+  // //Logout
   function signOut() {
     localStorage.removeItem("user");
     setLoginUser(null);
     window.location.replace("/");
   }
 
-  // Login
   function loginFunction() {
     var data: any = {};
-
-    if (users != null && email != "" && password != "") {
+    if (users !== null && email !== "" && password !== "") {
       var userFound = false; // Flag to check if a user is found
-
       users.map((user_element: any) => {
         if (
           user_element.email === email &&
@@ -74,27 +64,23 @@ function Nav() {
           user_element.access_type === "user"
         ) {
           setLoginUser(user_element);
-
           data = JSON.stringify(user_element);
           localStorage.setItem("user", data);
-          setLoginState(true);
+
           setIsOpen(false);
           Toast.fire({
             icon: "success",
             title: "Login successful! Welcome",
           });
-
           userFound = true; // Set the flag to true
           return;
         }
-
         if (
           user_element.email === email &&
           user_element.password === password &&
           user_element.access_type === "admin"
         ) {
           setLoginUser(user_element);
-
           data = JSON.stringify(user_element);
           localStorage.setItem("user", data);
           setLoginState(true);
@@ -103,13 +89,11 @@ function Nav() {
             icon: "success",
             title: "Login successful! Welcome Admin",
           });
-
           userFound = true; // Set the flag to true
           window.location.replace("/admin");
           return;
         }
       });
-
       // Check if no user was found and print "no man"
       if (!userFound) {
         Toast.fire({
@@ -118,7 +102,6 @@ function Nav() {
         });
       }
     }
-
     setIsOpen(false);
   }
 
@@ -256,9 +239,7 @@ function Nav() {
         <IonHeader className="modal_head">
           <IonToolbar className="modal_head">
             <IonButtons slot="start">
-              <IonButton onClick={() => modal.current?.dismiss()}>
-                Cancel
-              </IonButton>
+              <IonButton href="/">Cancel</IonButton>
             </IonButtons>
           </IonToolbar>
         </IonHeader>

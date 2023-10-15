@@ -50,7 +50,7 @@ function Detect() {
     const net = await handpose.load();
     //  Loop and detect hands
     setInterval(() => {
-      detect(net);
+      detect(net)
     }, 10);
   };
 
@@ -126,20 +126,23 @@ function Detect() {
   };
 
   function setTranslateFunction(data: any) {
+
     addTranslateData(data);
     return true;
   }
 
   async function addTranslateData(sign: any) {
-    const todoDetails: CreateGestureInput = {
-      sign_language: sign,
-      user_id: loginUser.id,
-    };
+    if (loginUser.id && sign) {
+      const todoDetails: CreateGestureInput = {
+        sign_language: sign,
+        user_id: loginUser.id,
+      };
 
-    const newTodo = await API.graphql<GraphQLQuery<CreateGestureMutation>>({
-      query: mutations.createGesture,
-      variables: { input: todoDetails },
-    });
+      const newTodo = await API.graphql<GraphQLQuery<CreateGestureMutation>>({
+        query: mutations.createGesture,
+        variables: { input: todoDetails },
+      });
+    }
   }
 
   useEffect(() => {

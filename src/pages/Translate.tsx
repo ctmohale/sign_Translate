@@ -14,6 +14,7 @@ import {
   IonRow,
   IonSelect,
   IonSelectOption,
+  IonTextarea,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
@@ -59,6 +60,12 @@ const Translate: React.FC = () => {
       }
     }
   }, [userTranslateSetting]);
+
+  useEffect(() => {
+    if (transData && defaultTrans) {
+      translateData(transData, defaultTrans);
+    }
+  }, [transData]);
 
   useEffect(() => {
     // Access the user's webcam
@@ -147,7 +154,7 @@ const Translate: React.FC = () => {
 
           <div className="row text-center">
             <div className="col-sm-6 mb-3 mb-sm-0">
-              <Detect />
+              {/* <Detect /> */}
             </div>
             <div
               className="col-sm-6 text-secondary p-5"
@@ -156,16 +163,14 @@ const Translate: React.FC = () => {
               <IonGrid>
                 <IonRow className="main_t_row">
                   <IonCol className="col_t" size="8">
-                    <b>
-                      <textarea
-                        id="text-inpu-da"
-                        className="text-input trans text-success p-5"
-                        value={translateData(transData, defaultTrans)}
-                      >
-                        <RiUserVoiceLine />
-                      </textarea>
-                    </b>
+                    <IonTextarea
+                      id="text-inpu-da"
+                      className="text-input trans text-success p-5"
+                    >
+                      {transData}
+                    </IonTextarea>
                   </IonCol>
+
                   <IonCol className="col_t">
                     <br />
                     <br />

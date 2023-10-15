@@ -1,16 +1,12 @@
 import { Redirect, Route } from "react-router-dom";
 import {
   IonApp,
-  IonIcon,
-  IonLabel,
   IonRouterOutlet,
   IonTabBar,
-  IonTabButton,
   IonTabs,
   setupIonicReact,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { ellipse, square, triangle } from "ionicons/icons";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -31,7 +27,6 @@ import "@ionic/react/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
 import Home from "./pages/Home";
-import Nav from "./components/Nav";
 
 import { API, Amplify, graphqlOperation } from "aws-amplify";
 
@@ -48,13 +43,9 @@ import { GraphQLQuery } from "@aws-amplify/api";
 import {
   ListLanguagesQuery,
   ListUsersQuery,
-  OnUpdateUserSubscription,
 } from "./API";
 import Profile from "./pages/Profile";
-import Main from "./pages/Translate";
 import Translate from "./pages/Translate";
-import { GraphQLSubscription } from "@aws-amplify/api";
-import * as subscriptions from "./graphql/subscriptions";
 import Settings from "./pages/Settings";
 import MainTranslate from "./context/translateLanguages";
 import UserTranslateSetting from "./context/translateSettings";
@@ -65,8 +56,7 @@ import UserProfile from "./pages/UserProfile";
 import Gesture from "./pages/Gesture";
 import Language from "./pages/Language";
 import SelectedUserAdmin from "./context/selected_user";
-import { PrimeReactProvider, PrimeReactContext } from "primereact/api";
-import "primereact/resources/themes/lara-light-indigo/theme.css";
+
 Amplify.configure(awsExports);
 
 setupIonicReact();

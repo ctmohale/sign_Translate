@@ -1,7 +1,7 @@
-// Import dependencies
+// // Import dependencies
 import {Finger, FingerCurl, FingerDirection, GestureDescription} from 'fingerpose'; 
 
-// Define Gesture Description
+// // Define Gesture Description
 export const NoGesture = new GestureDescription('No'); 
 
 // Thumb 
