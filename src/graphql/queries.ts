@@ -32,6 +32,7 @@ export const getUser = /* GraphQL */ `
           id
           sign_language
           user_id
+          camera
           createdAt
           updatedAt
           __typename
@@ -86,6 +87,7 @@ export const getGesture = /* GraphQL */ `
       id
       sign_language
       user_id
+      camera
       createdAt
       updatedAt
       __typename
@@ -103,6 +105,7 @@ export const listGestures = /* GraphQL */ `
         id
         sign_language
         user_id
+        camera
         createdAt
         updatedAt
         __typename
@@ -144,6 +147,52 @@ export const listLanguages = /* GraphQL */ `
     }
   }
 `;
+export const getAdmin = /* GraphQL */ `
+  query GetAdmin($id: ID!) {
+    getAdmin(id: $id) {
+      id
+      name
+      surname
+      email
+      password
+      address
+      postal_code
+      id_number
+      cell_phone_no
+      access_type
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const listAdmins = /* GraphQL */ `
+  query ListAdmins(
+    $filter: ModelAdminFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listAdmins(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        surname
+        email
+        password
+        address
+        postal_code
+        id_number
+        cell_phone_no
+        access_type
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
 export const gesturesByUser_id = /* GraphQL */ `
   query GesturesByUser_id(
     $user_id: ID!
@@ -163,6 +212,7 @@ export const gesturesByUser_id = /* GraphQL */ `
         id
         sign_language
         user_id
+        camera
         createdAt
         updatedAt
         __typename

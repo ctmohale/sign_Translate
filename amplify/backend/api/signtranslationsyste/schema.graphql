@@ -23,10 +23,24 @@ type Gesture @model {
   id: ID!
   sign_language: String!
   user_id: ID! @index(name: "byUserID")
+  camera: String
 }
 
 type Language @model {
   id: ID!
   Language_name: String!
   user_id: ID! @index(name: "byUserID")
+}
+
+type Admin @model {
+  id: ID!
+  name: String!
+  surname: String!
+  email: String!
+  password: String!
+  address: String!
+  postal_code: String!
+  id_number: String!
+  cell_phone_no: String!
+  access_type: String!
 }

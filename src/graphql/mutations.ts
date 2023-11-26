@@ -35,6 +35,7 @@ export const createUser = /* GraphQL */ `
           id
           sign_language
           user_id
+          camera
           createdAt
           updatedAt
           __typename
@@ -81,6 +82,7 @@ export const updateUser = /* GraphQL */ `
           id
           sign_language
           user_id
+          camera
           createdAt
           updatedAt
           __typename
@@ -127,6 +129,7 @@ export const deleteUser = /* GraphQL */ `
           id
           sign_language
           user_id
+          camera
           createdAt
           updatedAt
           __typename
@@ -149,6 +152,7 @@ export const createGesture = /* GraphQL */ `
       id
       sign_language
       user_id
+      camera
       createdAt
       updatedAt
       __typename
@@ -164,6 +168,7 @@ export const updateGesture = /* GraphQL */ `
       id
       sign_language
       user_id
+      camera
       createdAt
       updatedAt
       __typename
@@ -179,6 +184,7 @@ export const deleteGesture = /* GraphQL */ `
       id
       sign_language
       user_id
+      camera
       createdAt
       updatedAt
       __typename
@@ -224,6 +230,72 @@ export const deleteLanguage = /* GraphQL */ `
       id
       Language_name
       user_id
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const createAdmin = /* GraphQL */ `
+  mutation CreateAdmin(
+    $input: CreateAdminInput!
+    $condition: ModelAdminConditionInput
+  ) {
+    createAdmin(input: $input, condition: $condition) {
+      id
+      name
+      surname
+      email
+      password
+      address
+      postal_code
+      id_number
+      cell_phone_no
+      access_type
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateAdmin = /* GraphQL */ `
+  mutation UpdateAdmin(
+    $input: UpdateAdminInput!
+    $condition: ModelAdminConditionInput
+  ) {
+    updateAdmin(input: $input, condition: $condition) {
+      id
+      name
+      surname
+      email
+      password
+      address
+      postal_code
+      id_number
+      cell_phone_no
+      access_type
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteAdmin = /* GraphQL */ `
+  mutation DeleteAdmin(
+    $input: DeleteAdminInput!
+    $condition: ModelAdminConditionInput
+  ) {
+    deleteAdmin(input: $input, condition: $condition) {
+      id
+      name
+      surname
+      email
+      password
+      address
+      postal_code
+      id_number
+      cell_phone_no
+      access_type
       createdAt
       updatedAt
       __typename

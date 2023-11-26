@@ -114,6 +114,7 @@ export type Gesture = {
   id: string,
   sign_language: string,
   user_id: string,
+  camera?: string | null,
   createdAt: string,
   updatedAt: string,
 };
@@ -139,11 +140,13 @@ export type CreateGestureInput = {
   id?: string | null,
   sign_language: string,
   user_id: string,
+  camera?: string | null,
 };
 
 export type ModelGestureConditionInput = {
   sign_language?: ModelStringInput | null,
   user_id?: ModelIDInput | null,
+  camera?: ModelStringInput | null,
   and?: Array< ModelGestureConditionInput | null > | null,
   or?: Array< ModelGestureConditionInput | null > | null,
   not?: ModelGestureConditionInput | null,
@@ -169,6 +172,7 @@ export type UpdateGestureInput = {
   id: string,
   sign_language?: string | null,
   user_id?: string | null,
+  camera?: string | null,
 };
 
 export type DeleteGestureInput = {
@@ -199,6 +203,67 @@ export type DeleteLanguageInput = {
   id: string,
 };
 
+export type CreateAdminInput = {
+  id?: string | null,
+  name: string,
+  surname: string,
+  email: string,
+  password: string,
+  address: string,
+  postal_code: string,
+  id_number: string,
+  cell_phone_no: string,
+  access_type: string,
+};
+
+export type ModelAdminConditionInput = {
+  name?: ModelStringInput | null,
+  surname?: ModelStringInput | null,
+  email?: ModelStringInput | null,
+  password?: ModelStringInput | null,
+  address?: ModelStringInput | null,
+  postal_code?: ModelStringInput | null,
+  id_number?: ModelStringInput | null,
+  cell_phone_no?: ModelStringInput | null,
+  access_type?: ModelStringInput | null,
+  and?: Array< ModelAdminConditionInput | null > | null,
+  or?: Array< ModelAdminConditionInput | null > | null,
+  not?: ModelAdminConditionInput | null,
+};
+
+export type Admin = {
+  __typename: "Admin",
+  id: string,
+  name: string,
+  surname: string,
+  email: string,
+  password: string,
+  address: string,
+  postal_code: string,
+  id_number: string,
+  cell_phone_no: string,
+  access_type: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateAdminInput = {
+  id: string,
+  name?: string | null,
+  surname?: string | null,
+  email?: string | null,
+  password?: string | null,
+  address?: string | null,
+  postal_code?: string | null,
+  id_number?: string | null,
+  cell_phone_no?: string | null,
+  access_type?: string | null,
+};
+
+export type DeleteAdminInput = {
+  id: string,
+};
+
 export type ModelUserFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
@@ -225,6 +290,7 @@ export type ModelGestureFilterInput = {
   id?: ModelIDInput | null,
   sign_language?: ModelStringInput | null,
   user_id?: ModelIDInput | null,
+  camera?: ModelStringInput | null,
   and?: Array< ModelGestureFilterInput | null > | null,
   or?: Array< ModelGestureFilterInput | null > | null,
   not?: ModelGestureFilterInput | null,
@@ -237,6 +303,28 @@ export type ModelLanguageFilterInput = {
   and?: Array< ModelLanguageFilterInput | null > | null,
   or?: Array< ModelLanguageFilterInput | null > | null,
   not?: ModelLanguageFilterInput | null,
+};
+
+export type ModelAdminFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  surname?: ModelStringInput | null,
+  email?: ModelStringInput | null,
+  password?: ModelStringInput | null,
+  address?: ModelStringInput | null,
+  postal_code?: ModelStringInput | null,
+  id_number?: ModelStringInput | null,
+  cell_phone_no?: ModelStringInput | null,
+  access_type?: ModelStringInput | null,
+  and?: Array< ModelAdminFilterInput | null > | null,
+  or?: Array< ModelAdminFilterInput | null > | null,
+  not?: ModelAdminFilterInput | null,
+};
+
+export type ModelAdminConnection = {
+  __typename: "ModelAdminConnection",
+  items:  Array<Admin | null >,
+  nextToken?: string | null,
 };
 
 export enum ModelSortDirection {
@@ -294,6 +382,7 @@ export type ModelSubscriptionGestureFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   sign_language?: ModelSubscriptionStringInput | null,
   user_id?: ModelSubscriptionIDInput | null,
+  camera?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionGestureFilterInput | null > | null,
   or?: Array< ModelSubscriptionGestureFilterInput | null > | null,
 };
@@ -304,6 +393,21 @@ export type ModelSubscriptionLanguageFilterInput = {
   user_id?: ModelSubscriptionIDInput | null,
   and?: Array< ModelSubscriptionLanguageFilterInput | null > | null,
   or?: Array< ModelSubscriptionLanguageFilterInput | null > | null,
+};
+
+export type ModelSubscriptionAdminFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  name?: ModelSubscriptionStringInput | null,
+  surname?: ModelSubscriptionStringInput | null,
+  email?: ModelSubscriptionStringInput | null,
+  password?: ModelSubscriptionStringInput | null,
+  address?: ModelSubscriptionStringInput | null,
+  postal_code?: ModelSubscriptionStringInput | null,
+  id_number?: ModelSubscriptionStringInput | null,
+  cell_phone_no?: ModelSubscriptionStringInput | null,
+  access_type?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionAdminFilterInput | null > | null,
+  or?: Array< ModelSubscriptionAdminFilterInput | null > | null,
 };
 
 export type CreateUserMutationVariables = {
@@ -343,6 +447,7 @@ export type CreateUserMutation = {
         id: string,
         sign_language: string,
         user_id: string,
+        camera?: string | null,
         createdAt: string,
         updatedAt: string,
       } | null >,
@@ -390,6 +495,7 @@ export type UpdateUserMutation = {
         id: string,
         sign_language: string,
         user_id: string,
+        camera?: string | null,
         createdAt: string,
         updatedAt: string,
       } | null >,
@@ -437,6 +543,7 @@ export type DeleteUserMutation = {
         id: string,
         sign_language: string,
         user_id: string,
+        camera?: string | null,
         createdAt: string,
         updatedAt: string,
       } | null >,
@@ -458,6 +565,7 @@ export type CreateGestureMutation = {
     id: string,
     sign_language: string,
     user_id: string,
+    camera?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -474,6 +582,7 @@ export type UpdateGestureMutation = {
     id: string,
     sign_language: string,
     user_id: string,
+    camera?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -490,6 +599,7 @@ export type DeleteGestureMutation = {
     id: string,
     sign_language: string,
     user_id: string,
+    camera?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -543,6 +653,75 @@ export type DeleteLanguageMutation = {
   } | null,
 };
 
+export type CreateAdminMutationVariables = {
+  input: CreateAdminInput,
+  condition?: ModelAdminConditionInput | null,
+};
+
+export type CreateAdminMutation = {
+  createAdmin?:  {
+    __typename: "Admin",
+    id: string,
+    name: string,
+    surname: string,
+    email: string,
+    password: string,
+    address: string,
+    postal_code: string,
+    id_number: string,
+    cell_phone_no: string,
+    access_type: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateAdminMutationVariables = {
+  input: UpdateAdminInput,
+  condition?: ModelAdminConditionInput | null,
+};
+
+export type UpdateAdminMutation = {
+  updateAdmin?:  {
+    __typename: "Admin",
+    id: string,
+    name: string,
+    surname: string,
+    email: string,
+    password: string,
+    address: string,
+    postal_code: string,
+    id_number: string,
+    cell_phone_no: string,
+    access_type: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteAdminMutationVariables = {
+  input: DeleteAdminInput,
+  condition?: ModelAdminConditionInput | null,
+};
+
+export type DeleteAdminMutation = {
+  deleteAdmin?:  {
+    __typename: "Admin",
+    id: string,
+    name: string,
+    surname: string,
+    email: string,
+    password: string,
+    address: string,
+    postal_code: string,
+    id_number: string,
+    cell_phone_no: string,
+    access_type: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type GetUserQueryVariables = {
   id: string,
 };
@@ -579,6 +758,7 @@ export type GetUserQuery = {
         id: string,
         sign_language: string,
         user_id: string,
+        camera?: string | null,
         createdAt: string,
         updatedAt: string,
       } | null >,
@@ -635,6 +815,7 @@ export type GetGestureQuery = {
     id: string,
     sign_language: string,
     user_id: string,
+    camera?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -654,6 +835,7 @@ export type ListGesturesQuery = {
       id: string,
       sign_language: string,
       user_id: string,
+      camera?: string | null,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -697,6 +879,56 @@ export type ListLanguagesQuery = {
   } | null,
 };
 
+export type GetAdminQueryVariables = {
+  id: string,
+};
+
+export type GetAdminQuery = {
+  getAdmin?:  {
+    __typename: "Admin",
+    id: string,
+    name: string,
+    surname: string,
+    email: string,
+    password: string,
+    address: string,
+    postal_code: string,
+    id_number: string,
+    cell_phone_no: string,
+    access_type: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListAdminsQueryVariables = {
+  filter?: ModelAdminFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListAdminsQuery = {
+  listAdmins?:  {
+    __typename: "ModelAdminConnection",
+    items:  Array< {
+      __typename: "Admin",
+      id: string,
+      name: string,
+      surname: string,
+      email: string,
+      password: string,
+      address: string,
+      postal_code: string,
+      id_number: string,
+      cell_phone_no: string,
+      access_type: string,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
 export type GesturesByUser_idQueryVariables = {
   user_id: string,
   sortDirection?: ModelSortDirection | null,
@@ -713,6 +945,7 @@ export type GesturesByUser_idQuery = {
       id: string,
       sign_language: string,
       user_id: string,
+      camera?: string | null,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -779,6 +1012,7 @@ export type OnCreateUserSubscription = {
         id: string,
         sign_language: string,
         user_id: string,
+        camera?: string | null,
         createdAt: string,
         updatedAt: string,
       } | null >,
@@ -825,6 +1059,7 @@ export type OnUpdateUserSubscription = {
         id: string,
         sign_language: string,
         user_id: string,
+        camera?: string | null,
         createdAt: string,
         updatedAt: string,
       } | null >,
@@ -871,6 +1106,7 @@ export type OnDeleteUserSubscription = {
         id: string,
         sign_language: string,
         user_id: string,
+        camera?: string | null,
         createdAt: string,
         updatedAt: string,
       } | null >,
@@ -891,6 +1127,7 @@ export type OnCreateGestureSubscription = {
     id: string,
     sign_language: string,
     user_id: string,
+    camera?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -906,6 +1143,7 @@ export type OnUpdateGestureSubscription = {
     id: string,
     sign_language: string,
     user_id: string,
+    camera?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -921,6 +1159,7 @@ export type OnDeleteGestureSubscription = {
     id: string,
     sign_language: string,
     user_id: string,
+    camera?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -966,6 +1205,72 @@ export type OnDeleteLanguageSubscription = {
     id: string,
     Language_name: string,
     user_id: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateAdminSubscriptionVariables = {
+  filter?: ModelSubscriptionAdminFilterInput | null,
+};
+
+export type OnCreateAdminSubscription = {
+  onCreateAdmin?:  {
+    __typename: "Admin",
+    id: string,
+    name: string,
+    surname: string,
+    email: string,
+    password: string,
+    address: string,
+    postal_code: string,
+    id_number: string,
+    cell_phone_no: string,
+    access_type: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateAdminSubscriptionVariables = {
+  filter?: ModelSubscriptionAdminFilterInput | null,
+};
+
+export type OnUpdateAdminSubscription = {
+  onUpdateAdmin?:  {
+    __typename: "Admin",
+    id: string,
+    name: string,
+    surname: string,
+    email: string,
+    password: string,
+    address: string,
+    postal_code: string,
+    id_number: string,
+    cell_phone_no: string,
+    access_type: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteAdminSubscriptionVariables = {
+  filter?: ModelSubscriptionAdminFilterInput | null,
+};
+
+export type OnDeleteAdminSubscription = {
+  onDeleteAdmin?:  {
+    __typename: "Admin",
+    id: string,
+    name: string,
+    surname: string,
+    email: string,
+    password: string,
+    address: string,
+    postal_code: string,
+    id_number: string,
+    cell_phone_no: string,
+    access_type: string,
     createdAt: string,
     updatedAt: string,
   } | null,

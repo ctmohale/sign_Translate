@@ -40,10 +40,7 @@ import LoginData from "./context/login";
 import { useEffect, useState } from "react";
 import * as queries from "./graphql/queries";
 import { GraphQLQuery } from "@aws-amplify/api";
-import {
-  ListLanguagesQuery,
-  ListUsersQuery,
-} from "./API";
+import { ListAdminsQuery, ListLanguagesQuery, ListUsersQuery } from "./API";
 import Profile from "./pages/Profile";
 import Translate from "./pages/Translate";
 import Settings from "./pages/Settings";
@@ -56,6 +53,8 @@ import UserProfile from "./pages/UserProfile";
 import Gesture from "./pages/Gesture";
 import Language from "./pages/Language";
 import SelectedUserAdmin from "./context/selected_user";
+import Report from "./pages/Report";
+import AllAdmin from "./context/admin";
 
 Amplify.configure(awsExports);
 
@@ -63,6 +62,7 @@ setupIonicReact();
 
 const App: React.FC = () => {
   const [users, setUsers]: any = useState();
+  const [admin, setAdmin]: any = useState();
   const [loginUser, setLoginUser]: any = useState();
   const localData: any = localStorage.getItem("user");
   const [allTransLate, setAllTransLate]: any = useState();
@@ -72,6 +72,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     getAllUsers();
+    getAllAdmin();
     getTranslateSetting();
   }, []);
 
@@ -81,6 +82,14 @@ const App: React.FC = () => {
       query: queries.listUsers,
     });
     setUsers(allUsers.data?.listUsers?.items);
+  }
+
+  //Get all admin
+  async function getAllAdmin() {
+    const allUsers = await API.graphql<GraphQLQuery<ListAdminsQuery>>({
+      query: queries.listAdmins,
+    });
+    setAdmin(allUsers.data?.listAdmins?.items);
   }
 
   //Get all translate settings
@@ -111,54 +120,60 @@ const App: React.FC = () => {
                 <SelectedUserAdmin.Provider
                   value={{ selectedUserA, setSelectedUserA }}
                 >
-                  <IonReactRouter>
-                    <IonTabs>
-                      <IonRouterOutlet>
-                        <Authenticator></Authenticator>
-                        <Route exact path="/home">
-                          <Home />
-                        </Route>
-                        <Route exact path="/registration">
-                          <Registration />
-                        </Route>
-                        <Route exact path="/profile">
-                          <Profile />
-                        </Route>
-                        <Route exact path="/settings">
-                          <Settings />
-                        </Route>
+                  <AllAdmin.Provider value={{ admin, setAdmin }}>
+                    <IonReactRouter>
+                      <IonTabs>
+                        <IonRouterOutlet>
+                          <Authenticator></Authenticator>
+                          <Route exact path="/home">
+                            <Home />
+                          </Route>
+                          <Route exact path="/registration">
+                            <Registration />
+                          </Route>
+                          <Route exact path="/profile">
+                            <Profile />
+                          </Route>
+                          <Route exact path="/settings">
+                            <Settings />
+                          </Route>
 
-                        <Route exact path="/users">
-                          <Users />
-                        </Route>
-                        <Route exact path="/gesture">
-                          <Gesture />
-                        </Route>
+                          <Route exact path="/users">
+                            <Users />
+                          </Route>
+                          <Route exact path="/gesture">
+                            <Gesture />
+                          </Route>
 
-                        <Route exact path="/language">
-                          <Language />
-                        </Route>
-                        <Route exact path="/admin">
-                          <Admin />
-                        </Route>
+                          <Route exact path="/language">
+                            <Language />
+                          </Route>
+                          <Route exact path="/admin">
+                            <Admin />
+                          </Route>
 
-                        <Route exact path="/userprofile">
-                          <UserProfile />
-                        </Route>
-                        <Route exact path="/Translate">
-                          <Translate />
-                        </Route>
-                        <Route exact path="/">
-                          <Redirect to="/home" />
-                        </Route>
-                      </IonRouterOutlet>
+                          <Route exact path="/report">
+                            <Report />
+                          </Route>
 
-                      <IonTabBar
-                        slot="bottom"
-                        style={{ display: "none" }}
-                      ></IonTabBar>
-                    </IonTabs>
-                  </IonReactRouter>
+                          <Route exact path="/userprofile">
+                            <UserProfile />
+                          </Route>
+                          <Route exact path="/Translate">
+                            <Translate />
+                          </Route>
+                          <Route exact path="/">
+                            <Redirect to="/home" />
+                          </Route>
+                        </IonRouterOutlet>
+
+                        <IonTabBar
+                          slot="bottom"
+                          style={{ display: "none" }}
+                        ></IonTabBar>
+                      </IonTabs>
+                    </IonReactRouter>
+                  </AllAdmin.Provider>
                 </SelectedUserAdmin.Provider>
               </TestMainData.Provider>
             </UserTranslateSetting.Provider>

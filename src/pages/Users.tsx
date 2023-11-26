@@ -44,13 +44,14 @@ import MainTranslate from "../context/translateLanguages";
 import LoginData from "../context/login";
 import { FaHandsWash, FaUserEdit } from "react-icons/fa";
 import { TbFilterDown, TbLanguageKatakana } from "react-icons/tb";
-import { BsFiletypePdf } from "react-icons/bs";
+import { BsFiletypeCsv, BsFiletypePdf } from "react-icons/bs";
 import AllUsers from "../context/users";
 import { AiFillDashboard, AiFillFilter } from "react-icons/ai";
 import SelectedUserAdmin from "../context/selected_user";
 import { usePDF } from "react-to-pdf";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
+import { RiFileExcel2Line } from "react-icons/ri";
 
 const Users: React.FC = () => {
   const { userTranslateSetting, setSerTranslateSetting }: any =
@@ -80,6 +81,83 @@ const Users: React.FC = () => {
       toast.addEventListener("mouseleave", Swal.resumeTimer);
     },
   });
+
+  const dt: any = useRef(null);
+
+  const cols = [
+    { field: "code", header: "Code" },
+    { field: "name", header: "Name" },
+    { field: "category", header: "Category" },
+    { field: "quantity", header: "Quantity" },
+  ];
+
+  const exportColumns: any = cols.map((col) => ({
+    title: col.header,
+    dataKey: col.field,
+  }));
+
+  // eslint-disable-line react-hooks/exhaustive-deps
+
+  const exportCSV = (selectionOnly: any) => {
+    dt.current.exportCSV({ selectionOnly });
+  };
+
+  const exportExcel = () => {
+    import("xlsx").then((xlsx) => {
+      const worksheet = xlsx.utils.json_to_sheet(products);
+      const workbook = { Sheets: { data: worksheet }, SheetNames: ["data"] };
+      const excelBuffer = xlsx.write(workbook, {
+        bookType: "xlsx",
+        type: "array",
+      });
+
+      saveAsExcelFile(excelBuffer, "products");
+    });
+  };
+
+  let dataTest: any = "file-saver";
+  const saveAsExcelFile: any = (buffer: any, fileName: any) => {
+    import(dataTest).then((module: any) => {
+      if (module && module.default) {
+        let EXCEL_TYPE =
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+        let EXCEL_EXTENSION = ".xlsx";
+        const data = new Blob([buffer], {
+          type: EXCEL_TYPE,
+        });
+
+        module.default.saveAs(
+          data,
+          "Users" + "_export_" + new Date().getTime() + EXCEL_EXTENSION
+        );
+      }
+    });
+  };
+
+  const header = (
+    <div className="recordD">
+      <IonButton fill="clear" color="danger" onClick={() => toPDF()}>
+        <BsFiletypePdf size="30" /> PDF
+      </IonButton>
+      <IonButton
+        fill="clear"
+        type="button"
+        onClick={() => exportCSV(false)}
+        data-pr-tooltip="CSV"
+      >
+        <BsFiletypeCsv size="30" /> CSV
+      </IonButton>
+      <IonButton
+        fill="clear"
+        color="success"
+        type="button"
+        onClick={exportExcel}
+        data-pr-tooltip="XLS"
+      >
+        <RiFileExcel2Line size="30" /> EXCEL
+      </IonButton>
+    </div>
+  );
 
   useEffect(() => {
     setProducts(users);
@@ -183,21 +261,20 @@ const Users: React.FC = () => {
                   </ul>
                   <br />
                 </IonCol>
-                <IonCol style={{ textAlign: "right" }}>
-                  <IonButton fill="outline" onClick={() => toPDF()}>
-                    <BsFiletypePdf /> Download Records
-                  </IonButton>
-                </IonCol>
-
                 <IonCol size="12" ref={targetRef}>
                   <DataTable
                     selectionMode="single"
+                    ref={dt}
                     value={products}
+                    header={header}
                     selection={selectedProduct}
                     onSelectionChange={(e: any) => {
                       setSelectedProduct(e.value.id);
                       setX(e.value); // Assuming 'id' is the property holding the user's ID
                     }}
+                    paginator
+                    rows={5}
+                    rowsPerPageOptions={[5, 10, 25, 50]}
                     tableStyle={{ minWidth: "50rem" }}
                   >
                     <Column

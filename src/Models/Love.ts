@@ -1,23 +1,24 @@
-// // Import dependencies
-import {Finger, FingerCurl, FingerDirection, GestureDescription} from 'fingerpose'; 
+import { Finger, FingerCurl, FingerDirection, GestureDescription } from 'fingerpose';
 
-// // Define Gesture Description
-export const loveYouGesture = new GestureDescription('I love you'); 
+export const loveYouGesture = new GestureDescription('I love You');
 
-// Thumb 
-loveYouGesture.addCurl(Finger.Thumb, FingerCurl.NoCurl, 1.0)
-loveYouGesture.addDirection(Finger.Thumb, FingerDirection.HorizontalLeft, 0.55);
-loveYouGesture.addDirection(Finger.Thumb, FingerDirection.HorizontalRight, 0.55);
+// Thumb
+loveYouGesture.addCurl(Finger.Thumb, FingerCurl.NoCurl, 1.0);
+loveYouGesture.addDirection(Finger.Thumb, FingerDirection.VerticalUp, 1.0);
 
 // Index
-loveYouGesture.addCurl(Finger.Index, FingerCurl.NoCurl, 1.0)
-loveYouGesture.addDirection(Finger.Index, FingerDirection.VerticalUp, 0.55);
+loveYouGesture.addCurl(Finger.Index, FingerCurl.NoCurl, 1.0);
+loveYouGesture.addDirection(Finger.Index, FingerDirection.VerticalUp, 1.0);
 
 // Pinky
-loveYouGesture.addCurl(Finger.Pinky, FingerCurl.NoCurl, 1.0)
-loveYouGesture.addDirection(Finger.Pinky, FingerDirection.VerticalUp, 0.25);
+loveYouGesture.addCurl(Finger.Pinky, FingerCurl.NoCurl, 1.0);
+loveYouGesture.addDirection(Finger.Pinky, FingerDirection.DiagonalUpRight, 1.0);
+loveYouGesture.addDirection(Finger.Pinky, FingerDirection.DiagonalUpLeft, 1.0);
 
-for(let finger of [Finger.Middle, Finger.Ring]){
-    loveYouGesture.addCurl(finger, FingerCurl.FullCurl, .75); 
-    loveYouGesture.addDirection(finger, FingerDirection.VerticalDown, 0.25);
-}
+// Middle
+loveYouGesture.addCurl(Finger.Middle, FingerCurl.FullCurl, 1.0);
+loveYouGesture.addDirection(Finger.Middle, FingerDirection.VerticalDown, 1.0);
+
+// Ring
+loveYouGesture.addCurl(Finger.Ring, FingerCurl.FullCurl, 1.0);
+loveYouGesture.addDirection(Finger.Ring, FingerDirection.VerticalDown, 1.0);

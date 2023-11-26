@@ -40,13 +40,20 @@ import MainTranslate from "../context/translateLanguages";
 import LoginData from "../context/login";
 import { FaHandsWash, FaUserEdit } from "react-icons/fa";
 import { TbFilterDown, TbLanguageKatakana } from "react-icons/tb";
-import { BsFiletypePdf } from "react-icons/bs";
+import {
+  BsFileEarmarkWord,
+  BsFiletypeCsv,
+  BsFiletypePdf,
+} from "react-icons/bs";
 import AllUsers from "../context/users";
-import { AiFillDashboard } from "react-icons/ai";
+import { AiFillDashboard, AiFillFileExcel } from "react-icons/ai";
 import { usePDF } from "react-to-pdf";
 import * as queries from "../graphql/queries";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
+import { Button } from "@aws-amplify/ui-react";
+import { Tooltip } from "primereact/tooltip";
+import { RiFileExcel2Line } from "react-icons/ri";
 
 const Gesture: React.FC = () => {
   const { userTranslateSetting, setSerTranslateSetting }: any =
@@ -67,6 +74,83 @@ const Gesture: React.FC = () => {
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct]: any = useState(null);
   const [x, setX]: any = useState(null);
+
+  const dt: any = useRef(null);
+
+  const cols = [
+    { field: "code", header: "Code" },
+    { field: "name", header: "Name" },
+    { field: "category", header: "Category" },
+    { field: "quantity", header: "Quantity" },
+  ];
+
+  const exportColumns: any = cols.map((col) => ({
+    title: col.header,
+    dataKey: col.field,
+  }));
+
+  // eslint-disable-line react-hooks/exhaustive-deps
+
+  const exportCSV = (selectionOnly: any) => {
+    dt.current.exportCSV({ selectionOnly });
+  };
+
+  const exportExcel = () => {
+    import("xlsx").then((xlsx) => {
+      const worksheet = xlsx.utils.json_to_sheet(products);
+      const workbook = { Sheets: { data: worksheet }, SheetNames: ["data"] };
+      const excelBuffer = xlsx.write(workbook, {
+        bookType: "xlsx",
+        type: "array",
+      });
+
+      saveAsExcelFile(excelBuffer, "products");
+    });
+  };
+
+  let dataTest: any = "file-saver";
+  const saveAsExcelFile: any = (buffer: any, fileName: any) => {
+    import(dataTest).then((module: any) => {
+      if (module && module.default) {
+        let EXCEL_TYPE =
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+        let EXCEL_EXTENSION = ".xlsx";
+        const data = new Blob([buffer], {
+          type: EXCEL_TYPE,
+        });
+
+        module.default.saveAs(
+          data,
+          "Gesture" + "_export_" + new Date().getTime() + EXCEL_EXTENSION
+        );
+      }
+    });
+  };
+
+  const header = (
+    <div className="recordD">
+      <IonButton fill="clear" color="danger" onClick={() => toPDF()}>
+        <BsFiletypePdf size="30" /> PDF
+      </IonButton>
+      <IonButton
+        fill="clear"
+        type="button"
+        onClick={() => exportCSV(false)}
+        data-pr-tooltip="CSV"
+      >
+        <BsFiletypeCsv size="30" /> CSV
+      </IonButton>
+      <IonButton
+        fill="clear"
+        color="success"
+        type="button"
+        onClick={exportExcel}
+        data-pr-tooltip="XLS"
+      >
+        <RiFileExcel2Line size="30" /> EXCEL
+      </IonButton>
+    </div>
+  );
 
   const Toast = Swal.mixin({
     toast: true,
@@ -147,7 +231,7 @@ const Gesture: React.FC = () => {
               sign_language: ges_element.sign_language,
               name: users_element.name,
               surname: users_element.surname,
-              img: "/assets/sign/Thank you.png",
+              img: "/assets/sign/Thank You.png",
             });
           }
 
@@ -169,7 +253,7 @@ const Gesture: React.FC = () => {
               sign_language: ges_element.sign_language,
               name: users_element.name,
               surname: users_element.surname,
-              img: "/assets/sign/Goodbye.png",
+              img: "/assets/sign/Good Bye.png",
             });
           }
         }
@@ -283,16 +367,17 @@ const Gesture: React.FC = () => {
                   </ul>
                   <br />
                 </IonCol>
-                <IonCol style={{ textAlign: "right" }}>
-                  <IonButton fill="outline" onClick={() => toPDF()}>
-                    <BsFiletypePdf /> Download Records
-                  </IonButton>
-                </IonCol>
+
                 <IonCol size="12" ref={targetRef}>
                   <DataTable
+                    ref={dt}
+                    header={header}
                     selectionMode="single"
                     value={products}
                     selection={selectedProduct}
+                    paginator
+                    rows={5}
+                    rowsPerPageOptions={[5, 10, 25, 50]}
                     onSelectionChange={(e: any) => {
                       setSelectedProduct(e.value.id);
                       setX(e.value); // Assuming 'id' is the property holding the user's ID

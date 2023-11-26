@@ -13,7 +13,7 @@ import {
 } from "@ionic/react";
 import "@aws-amplify/ui-react/styles.css";
 import { CgMenuRight } from "react-icons/cg";
-import { TbHome2 } from "react-icons/tb";
+import { TbHome2, TbReportSearch } from "react-icons/tb";
 import { BiLogOutCircle, BiUser, BiUserVoice } from "react-icons/bi";
 import {
   AiOutlineDashboard,
@@ -24,12 +24,14 @@ import LoginData from "../context/login";
 import AllUsers from "../context/users";
 import Swal from "sweetalert2";
 import { MdAdminPanelSettings } from "react-icons/md";
+import AllAdmin from "../context/admin";
 
 function Nav() {
   const { loginUser, setLoginUser }: any = useContext(LoginData);
   const [email, setEmail]: any = useState("");
   const [password, setPassword]: any = useState("");
   const { users }: any = useContext(AllUsers);
+  const { admin }: any = useContext(AllAdmin);
   const [setLoginState]: any = useState(false);
   const [isOpen, setIsOpen]: any = useState(false);
   const modal = useRef<HTMLIonModalElement>(null);
@@ -54,54 +56,57 @@ function Nav() {
   }
 
   function loginFunction() {
-    var data: any = {};
-    if (users !== null && email !== "" && password !== "") {
-      var userFound = false; // Flag to check if a user is found
-      users.map((user_element: any) => {
-        if (
-          user_element.email === email &&
-          user_element.password === password &&
-          user_element.access_type === "user"
-        ) {
-          setLoginUser(user_element);
-          data = JSON.stringify(user_element);
-          localStorage.setItem("user", data);
-
-          setIsOpen(false);
-          Toast.fire({
-            icon: "success",
-            title: "Login successful! Welcome",
-          });
-          userFound = true; // Set the flag to true
-          return;
-        }
-        if (
-          user_element.email === email &&
-          user_element.password === password &&
-          user_element.access_type === "admin"
-        ) {
-          setLoginUser(user_element);
-          data = JSON.stringify(user_element);
-          localStorage.setItem("user", data);
-          setLoginState(true);
-          setIsOpen(false);
-          Toast.fire({
-            icon: "success",
-            title: "Login successful! Welcome Admin",
-          });
-          userFound = true; // Set the flag to true
-          window.location.replace("/admin");
-          return;
-        }
+    if (!users || email === "" || password === "") {
+      Toast.fire({
+        icon: "warning",
+        title: "Error, please enter valid login info...",
       });
-      // Check if no user was found and print "no man"
-      if (!userFound) {
-        Toast.fire({
-          icon: "warning",
-          title: "Error, please enter correct login info...",
-        });
-      }
+      setIsOpen(false);
+      return;
     }
+
+    const user = findUser(users, email, password, "user");
+    const adminUser = findUser(admin, email, password, "admin");
+
+    if (user) {
+      handleLogin(user, false);
+    } else if (adminUser) {
+      handleLogin(adminUser, true);
+    } else {
+      Toast.fire({
+        icon: "warning",
+        title: "Error, please enter correct login info...",
+      });
+    }
+  }
+
+  function findUser(users: any, email: any, password: any, accessType: any) {
+    return users.find(
+      (user_element: any) =>
+        user_element.email === email &&
+        user_element.password === password &&
+        user_element.access_type === accessType
+    );
+  }
+
+  function handleLogin(user: any, isAdmin: any) {
+    const data = JSON.stringify(user);
+    localStorage.setItem("user", data);
+    setLoginUser(user);
+
+    if (isAdmin) {
+      setLoginState(true);
+      Toast.fire({
+        icon: "success",
+        title: "Login successful! Welcome Admin",
+      });
+    } else {
+      Toast.fire({
+        icon: "success",
+        title: "Login successful! Welcome",
+      });
+    }
+
     setIsOpen(false);
   }
 
@@ -167,6 +172,15 @@ function Nav() {
                       color="medium"
                     >
                       <AiOutlineSetting size="25" /> Settings
+                    </IonButton>
+                    <br />
+                    <IonButton
+                      fill="clear"
+                      shape="round"
+                      routerLink="/report"
+                      color="medium"
+                    >
+                      <TbReportSearch size="25" /> Report
                     </IonButton>
                     <br />
                     <IonButton

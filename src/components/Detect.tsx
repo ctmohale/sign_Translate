@@ -24,6 +24,7 @@ import { thankYouGesture } from "../Models/Thankyou";
 import { NoGesture } from "../Models/No";
 import { YesGesture } from "../Models/Yes";
 import { HelloGesture } from "../Models/Hello";
+import { Goodbye } from "../Models/Goodbye";
 
 import TestMainData from "../context/textData";
 import { CreateGestureInput, CreateGestureMutation } from "../API";
@@ -50,7 +51,7 @@ function Detect() {
     const net = await handpose.load();
     //  Loop and detect hands
     setInterval(() => {
-      detect(net)
+      detect(net);
     }, 10);
   };
 
@@ -87,6 +88,7 @@ function Detect() {
           NoGesture,
           YesGesture,
           HelloGesture,
+          Goodbye,
         ]);
         const gesture = await GE.estimate(hand[0].landmarks, 4);
 
@@ -115,6 +117,9 @@ function Detect() {
 
           setTextData("Test");
         }
+      } else {
+        // No hand pose detected, set the appropriate message
+        setTextData("No pose detected");
       }
 
       ///////// NEW STUFF ADDED GESTURE HANDLING
@@ -126,23 +131,22 @@ function Detect() {
   };
 
   function setTranslateFunction(data: any) {
-
     addTranslateData(data);
     return true;
   }
 
   async function addTranslateData(sign: any) {
-    if (loginUser.id && sign) {
-      const todoDetails: CreateGestureInput = {
-        sign_language: sign,
-        user_id: loginUser.id,
-      };
+    // if (loginUser.id && sign) {
+    //   const todoDetails: CreateGestureInput = {
+    //     sign_language: sign,
+    //     user_id: loginUser.id,
+    //   };
 
-      const newTodo = await API.graphql<GraphQLQuery<CreateGestureMutation>>({
-        query: mutations.createGesture,
-        variables: { input: todoDetails },
-      });
-    }
+    //   const newTodo = await API.graphql<GraphQLQuery<CreateGestureMutation>>({
+    //     query: mutations.createGesture,
+    //     variables: { input: todoDetails },
+    //   });
+    // }
   }
 
   useEffect(() => {

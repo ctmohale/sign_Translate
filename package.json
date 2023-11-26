@@ -26,6 +26,7 @@
     "@types/react-router": "^5.1.20",
     "@types/react-router-dom": "^5.3.3",
     "aws-amplify": "^5.3.7",
+    "file-saver": "^2.0.5",
     "fingerpose": "^0.1.0",
     "primereact": "^10.0.2",
     "react": "^18.2.0",
@@ -36,7 +37,8 @@
     "react-to-pdf": "^1.0.1",
     "react-webcam": "^7.1.1",
     "sweetalert2": "^11.7.23",
-    "utilities": "^1.0.6"
+    "utilities": "^1.0.6",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@capacitor/cli": "5.2.3",

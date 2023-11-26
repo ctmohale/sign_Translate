@@ -135,7 +135,7 @@ const Translate: React.FC = () => {
     else if (data === "I love you") img = "../assets/sign/Hello.png";
     else if (data === "No") img = "../assets/sign/No.png";
     else if (data === "Thank You") img = "../assets/sign/Thank you.png";
-    else if (data === "Good Bye") img = "../assets/sign/Goodbye.png";
+    else if (data === "Good Bye") img = "../assets/sign/Good Bye.png";
     else if (data === "Please") img = "../assets/sign/Please.png";
     return img;
   }

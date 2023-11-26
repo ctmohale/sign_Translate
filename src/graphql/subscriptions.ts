@@ -32,6 +32,7 @@ export const onCreateUser = /* GraphQL */ `
           id
           sign_language
           user_id
+          camera
           createdAt
           updatedAt
           __typename
@@ -75,6 +76,7 @@ export const onUpdateUser = /* GraphQL */ `
           id
           sign_language
           user_id
+          camera
           createdAt
           updatedAt
           __typename
@@ -118,6 +120,7 @@ export const onDeleteUser = /* GraphQL */ `
           id
           sign_language
           user_id
+          camera
           createdAt
           updatedAt
           __typename
@@ -137,6 +140,7 @@ export const onCreateGesture = /* GraphQL */ `
       id
       sign_language
       user_id
+      camera
       createdAt
       updatedAt
       __typename
@@ -149,6 +153,7 @@ export const onUpdateGesture = /* GraphQL */ `
       id
       sign_language
       user_id
+      camera
       createdAt
       updatedAt
       __typename
@@ -161,6 +166,7 @@ export const onDeleteGesture = /* GraphQL */ `
       id
       sign_language
       user_id
+      camera
       createdAt
       updatedAt
       __typename
@@ -197,6 +203,63 @@ export const onDeleteLanguage = /* GraphQL */ `
       id
       Language_name
       user_id
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onCreateAdmin = /* GraphQL */ `
+  subscription OnCreateAdmin($filter: ModelSubscriptionAdminFilterInput) {
+    onCreateAdmin(filter: $filter) {
+      id
+      name
+      surname
+      email
+      password
+      address
+      postal_code
+      id_number
+      cell_phone_no
+      access_type
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateAdmin = /* GraphQL */ `
+  subscription OnUpdateAdmin($filter: ModelSubscriptionAdminFilterInput) {
+    onUpdateAdmin(filter: $filter) {
+      id
+      name
+      surname
+      email
+      password
+      address
+      postal_code
+      id_number
+      cell_phone_no
+      access_type
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteAdmin = /* GraphQL */ `
+  subscription OnDeleteAdmin($filter: ModelSubscriptionAdminFilterInput) {
+    onDeleteAdmin(filter: $filter) {
+      id
+      name
+      surname
+      email
+      password
+      address
+      postal_code
+      id_number
+      cell_phone_no
+      access_type
       createdAt
       updatedAt
       __typename

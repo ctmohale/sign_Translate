@@ -355,9 +355,12 @@ const Profile: React.FC = () => {
                   >
                     Update Profile
                   </IonButton>
-                  <IonButton id="present-alert" color="danger" shape="round">
-                    Delete Profile
-                  </IonButton>
+                  {loginUser && loginUser.access_type !== "admin" && (
+                    <IonButton id="present-alert" color="danger" shape="round">
+                      Delete Profile
+                    </IonButton>
+                  )}
+
                   <IonAlert
                     header="Are you sure you want to delete your profile!"
                     trigger="present-alert"
